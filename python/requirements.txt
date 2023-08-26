@@ -10,8 +10,10 @@ ca-certificates=2023.05.30=h06a4308_0
 cffi=1.15.1=pypi_0
 contourpy=1.1.0=pypi_0
 cycler=0.11.0=pypi_0
+evdev=1.6.1=pypi_0
 flatbuffers=23.5.26=pypi_0
 fonttools=4.42.1=pypi_0
+keyboard=0.13.5=pypi_0
 kiwisolver=1.4.5=pypi_0
 ld_impl_linux-64=2.38=h1181459_1
 libffi=3.4.4=h6a678d5_0
@@ -30,10 +32,12 @@ pillow=10.0.0=pypi_0
 pip=23.2.1=py311h06a4308_0
 protobuf=3.20.3=pypi_0
 pycparser=2.21=pypi_0
+pynput=1.7.6=pypi_0
 pyparsing=3.0.9=pypi_0
 pyrealsense2=2.54.1.5217=pypi_0
 python=3.11.4=h955ad1f_0
 python-dateutil=2.8.2=pypi_0
+python-xlib=0.33=pypi_0
 readline=8.2=h5eee18b_0
 setuptools=68.0.0=py311h06a4308_0
 six=1.16.0=pypi_0
