@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://GUI/ConnectScreen.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="ConnectUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="Background" type="ColorRect" parent="." groups=["GUI"]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.254902, 0.254902, 0.254902, 0.827451 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 24.0
+
+[node name="HostButton" type="Button" parent="Background/VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 20.0
+
+[node name="JoinButton" type="Button" parent="Background/VBoxContainer"]
+margin_top = 24.0
+margin_right = 40.0
+margin_bottom = 44.0
+
+[node name="DEBUG" type="TextEdit" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 56.0
+margin_top = -57.0
+margin_right = -56.0
+margin_bottom = -8.0
+custom_styles/read_only = SubResource( 1 )
+readonly = true
+context_menu_enabled = false
+shortcut_keys_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+wrap_enabled = true
+
+[connection signal="pressed" from="Background/VBoxContainer/HostButton" to="." method="_on_HostButton_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/JoinButton" to="." method="_on_JoinButton_pressed"]
