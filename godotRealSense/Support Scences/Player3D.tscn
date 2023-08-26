@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Support Scences/Player3D.gd" type="Script" id=1]
+
+[sub_resource type="CylinderMesh" id=1]
+
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="Skin" id=3]
+
+[sub_resource type="SphereMesh" id=4]
+
+[sub_resource type="BoxShape" id=5]
+
+[node name="Kinematic" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="Hand_Left" type="MeshInstance" parent="."]
+transform = Transform( 0.343, 0, 0, 0, 0.418, 0, 0, 0, 0.499, -0.939, 0, 0 )
+mesh = SubResource( 1 )
+skeleton = NodePath("")
+
+[node name="Hand_Right" type="MeshInstance" parent="."]
+transform = Transform( 0.343, 0, 0, 0, 0.418, 0, 0, 0, 0.499, 0.845, 0, 0 )
+mesh = SubResource( 2 )
+skin = SubResource( 3 )
+skeleton = NodePath("")
+
+[node name="Face" type="MeshInstance" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.371, 0 )
+mesh = SubResource( 4 )
+skeleton = NodePath("")
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.418, 0, 0, 0, 1.016, 0, 0, 0, 0.509, 0, 0, 0 )
+shape = SubResource( 5 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.99456, 0.104164, 0, -0.104164, 0.99456, 0, 1.351, 2.754 )

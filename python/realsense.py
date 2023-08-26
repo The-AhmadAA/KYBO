@@ -107,19 +107,12 @@ while True:
                 center_y = int((faceLms.landmark[33].y + faceLms.landmark[263].y) * 0.5 * len(depth_image))
                 center_distance = depth_image[center_y, center_x] * depth_scale
                 conn.sendall(f"Face,{center_x/stream_res_x},{center_y/stream_res_y},{round(center_distance, 5)}!!\n".encode())
-
+                print(f"Face: {center_x/stream_res_x},{center_y/stream_res_y}")
                 #print(f"Face Center (x: {center_x}, y: {center_y}), Distance: {center_distance:.3f} meters")
 
     except Exception: 
-        print("Connection lost... Restarting server in 5 seconds.")
+        print("Connection lost... Restarting.")
         conn.close()
         server_socket.close()
-        time.sleep(2)
         print("Waiting for Godot")
         conn, server_socket = start_server()
-
-print(f"Application Closing")
-pipeline.stop()
-conn.close()
-server_socket.close()  # Ensure the server socket is closed here too.
-print(f"Application Closed.")
