@@ -2,14 +2,19 @@ import pyrealsense2 as rs
 import mediapipe as mp
 import cv2
 import numpy as np
-import socket, time
-from pynput import keyboard
+import socket
 import atexit
+
+def normalize_coordinates(x, y, frame_width, frame_height):
+    normalized_x = (x - frame_width / 2) / (frame_width / 2)
+    normalized_y = (y - frame_height / 2) / (frame_height / 2)
+    return normalized_x, normalized_y
+
 
 
 def start_server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # Add this line
+    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server_socket.bind(('localhost', 65442))
     server_socket.listen()
 
@@ -51,19 +56,24 @@ align = rs.align(align_to)
 depth_sensor = profile.get_device().first_depth_sensor()
 depth_scale = depth_sensor.get_depth_scale()
 
+def cleanup():
+    print("Cleaning up...")
+    try:
+        conn.close()
+        server_socket.close()
+        pipeline.stop()
+    except:
+        pass
+    print("Cleanup completed!")
+
+atexit.register(cleanup)
+
 # ====== Run the code ======== #
 conn, server_socket = start_server()
 
 print(f"Connected, starting to capture images on SN: {device}")
 
-def cleanup():
-    print("Cleaning up...")
-    conn.close()
-    server_socket.close()
-    pipeline.stop()
-    print("Cleanup completed!")
 
-atexit.register(cleanup)
 
 
 # Your main loop
@@ -94,8 +104,20 @@ while True:
                 x = int(middle_finger_knuckle.x * len(depth_image_flipped[0]))
                 y = int(middle_finger_knuckle.y * len(depth_image_flipped))
                 mfk_distance = depth_image_flipped[y,x] * depth_scale  # meters
+                if hand_side == "Left":
+                    hand_side = "Right"
+                else:
+                    hand_side = "Left"
 
-                conn.sendall(f"Hand_{hand_side},{round(x/stream_res_x, 8)},{round(y/stream_res_y, 8)},{round(mfk_distance, 5)}!!\n".encode())
+                # Clamp the distance between 0 and 5 meters
+                clamped_distance = min(max(mfk_distance, 0), 5)
+
+                # Normalize the clamped distance to be between -1 and 1
+                normalized_distance =  clamped_distance#2 * (clamped_distance / 5)
+
+                norm_x, norm_y = normalize_coordinates(x, y, stream_res_x, stream_res_y)
+
+                conn.sendall(f"Hand_{hand_side},{-round(norm_x, 8)},{-round(norm_y, 8)},{-round(normalized_distance, 8)}!!\n".encode())
                 print(f"Hand_{hand_side}")
 
                 #print(f"{hand_side} Hand Midpoint (x: {x}, y: {y}), Distance: {mfk_distance:.3f} meters")
@@ -106,8 +128,16 @@ while True:
                 center_x = int((faceLms.landmark[33].x + faceLms.landmark[263].x) * 0.5 * len(depth_image[0]))
                 center_y = int((faceLms.landmark[33].y + faceLms.landmark[263].y) * 0.5 * len(depth_image))
                 center_distance = depth_image[center_y, center_x] * depth_scale
-                conn.sendall(f"Face,{center_x/stream_res_x},{center_y/stream_res_y},{round(center_distance, 5)}!!\n".encode())
-                print(f"Face: {center_x/stream_res_x},{center_y/stream_res_y}")
+
+                # Clamp the distance between 0 and 5 meters
+                clamped_distance = min(max(center_distance, 0), 5) - 1
+
+                # Normalize the clamped distance to be between -1 and 1
+                normalized_distance = clamped_distance #2 * (clamped_distance / 5)
+                norm_x, norm_y = normalize_coordinates(center_x, center_y, stream_res_x, stream_res_y)
+
+                conn.sendall(f"Face,{-round(norm_x, 8)},{-round(norm_y, 8)},{-round(normalized_distance, 5)}!!\n".encode())
+                print(f"Face: {norm_x},{norm_y}")
                 #print(f"Face Center (x: {center_x}, y: {center_y}), Distance: {center_distance:.3f} meters")
 
     except Exception: 
