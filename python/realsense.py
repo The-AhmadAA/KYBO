@@ -15,7 +15,7 @@ def normalize_coordinates(x, y, frame_width, frame_height):
 def start_server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    server_socket.bind(('localhost', 65442))
+    server_socket.bind(('127.0.0.1', 65443))
     server_socket.listen()
 
     print("Waiting for Godot...")
@@ -52,6 +52,9 @@ profile = pipeline.start(config)
 align_to = rs.stream.color
 align = rs.align(align_to)
 
+
+
+
 # ====== Get depth Scale ======
 depth_sensor = profile.get_device().first_depth_sensor()
 depth_scale = depth_sensor.get_depth_scale()
@@ -73,7 +76,10 @@ conn, server_socket = start_server()
 
 print(f"Connected, starting to capture images on SN: {device}")
 
-
+def calculate_hand_centroid(handLms):
+    x = sum([lm.x for lm in handLms.landmark]) / len(handLms.landmark)
+    y = sum([lm.y for lm in handLms.landmark]) / len(handLms.landmark)
+    return x, y
 
 
 # Your main loop
@@ -94,33 +100,51 @@ while True:
         color_image = np.asanyarray(color_frame.get_data())
         color_images_rgb = cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB)
 
+
+
         # Process hands
         results = hands.process(color_images_rgb)
         if results.multi_hand_landmarks:
             for idx, handLms in enumerate(results.multi_hand_landmarks):
                 hand_side_classification_list = results.multi_handedness[idx]
                 hand_side = hand_side_classification_list.classification[0].label
-                middle_finger_knuckle = handLms.landmark[9]
-                x = int(middle_finger_knuckle.x * len(depth_image_flipped[0]))
-                y = int(middle_finger_knuckle.y * len(depth_image_flipped))
-                mfk_distance = depth_image_flipped[y,x] * depth_scale  # meters
+
+                centroid_x, centroid_y = calculate_hand_centroid(handLms)
+        
+                x = int(centroid_x * len(depth_image_flipped[0]))
+                y = int(centroid_y * len(depth_image_flipped))
+                
+                # Sample from a region around the centroid for a more robust depth measurement.
+                # Let's consider a 5x5 region around the centroid for simplicity.
+                depth_values = []
+                for i in range(-2, 3):  # considering 5 pixels in x direction
+                    for j in range(-2, 3):  # considering 5 pixels in y direction
+                        depth_value = depth_image_flipped[y+j, x+i] * depth_scale
+                        if depth_value > 0:  # discard invalid depth values
+                            depth_values.append(depth_value)
+                if not depth_values:
+                    continue  # continue if there are no valid depth values
+
+                # Calculate the average depth from the sampled region.
+                avg_distance = sum(depth_values) / len(depth_values)
+
+
                 if hand_side == "Left":
                     hand_side = "Right"
                 else:
                     hand_side = "Left"
 
                 # Clamp the distance between 0 and 5 meters
-                clamped_distance = min(max(mfk_distance, 0), 5)
+                clamped_distance = min(max(avg_distance, 0), 5)
+
 
                 # Normalize the clamped distance to be between -1 and 1
-                normalized_distance =  clamped_distance#2 * (clamped_distance / 5)
+                normalized_distance =  2 * (clamped_distance / 5)
 
                 norm_x, norm_y = normalize_coordinates(x, y, stream_res_x, stream_res_y)
 
                 conn.sendall(f"Hand_{hand_side},{-round(norm_x, 8)},{-round(norm_y, 8)},{-round(normalized_distance, 8)}!!\n".encode())
                 print(f"Hand_{hand_side}")
-
-                #print(f"{hand_side} Hand Midpoint (x: {x}, y: {y}), Distance: {mfk_distance:.3f} meters")
 
         face_results = face.process(color_images_rgb)
         if face_results.multi_face_landmarks:
