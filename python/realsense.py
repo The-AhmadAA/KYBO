@@ -65,6 +65,16 @@ while True:
             mfk_distance = depth_image_flipped[y,x] * depth_scale  # meters
             print(f"{hand_side} Hand Midpoint (x: {x}, y: {y}), Distance: {mfk_distance:.3f} meters")
 
+    face_results = face.process(color_images_rgb)
+    if face_results.multi_face_landmarks:
+        for faceLms in face_results.multi_face_landmarks:
+            center_x = int((faceLms.landmark[33].x + faceLms.landmark[263].x) * 0.5 * len(depth_image[0]))
+            center_y = int((faceLms.landmark[33].y + faceLms.landmark[263].y) * 0.5 * len(depth_image))
+            center_distance = depth_image[center_y, center_x] * depth_scale
+            print(f"Face Center (x: {center_x}, y: {center_y}), Distance: {center_distance:.3f} meters")
+
+    # Break the loop with a specific keypress fo
+
     key = cv2.waitKey(1)
     # Press esc or 'q' to exit the loop
     if key & 0xFF == ord('q') or key == 27:
