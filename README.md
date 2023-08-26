@@ -26,9 +26,3 @@ numpy
 socket
 atexit
 ```
-
-
-### Alternatively
-```
-
-```
