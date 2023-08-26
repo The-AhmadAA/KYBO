@@ -16,3 +16,7 @@ transform = Transform( 6.819, 0, 0, 0, 0.066, 0, 0, 0, 8.174, 0, -1.445, -0.022 
 shape = SubResource( 1 )
 
 [node name="Kinematic" parent="." instance=ExtResource( 2 )]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.90912, 0.416535, 0, -0.416535, 0.90912, 0, 3.52406, 5.84508 )
+current = true

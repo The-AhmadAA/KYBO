@@ -3,7 +3,7 @@ import mediapipe as mp
 import cv2
 import numpy as np
 import socket
-import atexit
+import atexit, time
 
 def normalize_coordinates(x, y, frame_width, frame_height):
     normalized_x = (x - frame_width / 2) / (frame_width / 2)
@@ -15,7 +15,7 @@ def normalize_coordinates(x, y, frame_width, frame_height):
 def start_server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    server_socket.bind(('127.0.0.1', 65443))
+    server_socket.bind(('127.0.0.1', 65445))
     server_socket.listen()
 
     print("Waiting for Godot...")
@@ -99,11 +99,12 @@ while True:
         depth_image_flipped = cv2.flip(depth_image, 1)
         color_image = np.asanyarray(color_frame.get_data())
         color_images_rgb = cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB)
+        color_images_rgb_flipped = cv2.flip(color_images_rgb, 1)
 
-
+        height, width = depth_image_flipped.shape
 
         # Process hands
-        results = hands.process(color_images_rgb)
+        results = hands.process(color_images_rgb_flipped)
         if results.multi_hand_landmarks:
             for idx, handLms in enumerate(results.multi_hand_landmarks):
                 hand_side_classification_list = results.multi_handedness[idx]
@@ -119,38 +120,38 @@ while True:
                 depth_values = []
                 for i in range(-2, 3):  # considering 5 pixels in x direction
                     for j in range(-2, 3):  # considering 5 pixels in y direction
-                        depth_value = depth_image_flipped[y+j, x+i] * depth_scale
-                        if depth_value > 0:  # discard invalid depth values
-                            depth_values.append(depth_value)
+                        if 0 <= y+j < height and 0 <= x+i < width:
+                            depth_value = depth_image_flipped[y+j, x+i] * depth_scale
+                            if depth_value > 0:  # discard invalid depth values
+                                depth_values.append(depth_value)
                 if not depth_values:
                     continue  # continue if there are no valid depth values
 
                 # Calculate the average depth from the sampled region.
                 avg_distance = sum(depth_values) / len(depth_values)
 
+                # # Clamp the distance between 0 and 1 meters
+                clamped_distance = min(max(avg_distance, 0), 1)
 
-                if hand_side == "Left":
-                    hand_side = "Right"
-                else:
-                    hand_side = "Left"
-
-                # Clamp the distance between 0 and 5 meters
-                clamped_distance = min(max(avg_distance, 0), 5)
-
-
-                # Normalize the clamped distance to be between -1 and 1
-                normalized_distance =  2 * (clamped_distance / 5)
+                # print(f"Hand_{hand_side} - Distance: {avg_distance}")
+                # # Normalize the clamped distance to be between -1 and 1
+                normalized_distance =  3 * (clamped_distance / 1)
+                # normalized_distance = avg_distance
 
                 norm_x, norm_y = normalize_coordinates(x, y, stream_res_x, stream_res_y)
 
-                conn.sendall(f"Hand_{hand_side},{-round(norm_x, 8)},{-round(norm_y, 8)},{-round(normalized_distance, 8)}!!\n".encode())
-                print(f"Hand_{hand_side}")
+                conn.sendall(f"Hand_{hand_side},{round(norm_x, 8)},{-round(norm_y, 8)}, {round(normalized_distance, 8)}!!\n".encode())
+                # print(f"Hand_{hand_side}")
 
         face_results = face.process(color_images_rgb)
         if face_results.multi_face_landmarks:
             for faceLms in face_results.multi_face_landmarks:
                 center_x = int((faceLms.landmark[33].x + faceLms.landmark[263].x) * 0.5 * len(depth_image[0]))
                 center_y = int((faceLms.landmark[33].y + faceLms.landmark[263].y) * 0.5 * len(depth_image))
+                
+                center_x = min(max(center_x, 0), width - 1)
+                center_y = min(max(center_y, 0), height - 1)
+                
                 center_distance = depth_image[center_y, center_x] * depth_scale
 
                 # Clamp the distance between 0 and 5 meters
@@ -160,11 +161,11 @@ while True:
                 normalized_distance = clamped_distance #2 * (clamped_distance / 5)
                 norm_x, norm_y = normalize_coordinates(center_x, center_y, stream_res_x, stream_res_y)
 
-                conn.sendall(f"Face,{-round(norm_x, 8)},{-round(norm_y, 8)},{-round(normalized_distance, 5)}!!\n".encode())
-                print(f"Face: {norm_x},{norm_y}")
+                conn.sendall(f"Face,{-round(norm_x, 8)},{-round(norm_y, 8)},{round(normalized_distance, 5)}!!\n".encode())
+                # print(f"Face: {norm_x},{norm_y}")
                 #print(f"Face Center (x: {center_x}, y: {center_y}), Distance: {center_distance:.3f} meters")
 
-    except Exception: 
+    except (ConnectionResetError, ConnectionRefusedError, ConnectionAbortedError): 
         print("Connection lost... Restarting.")
         conn.close()
         server_socket.close()
