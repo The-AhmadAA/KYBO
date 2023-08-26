@@ -4,10 +4,10 @@
 [ext_resource path="res://boxer1.gd" type="Script" id=2]
 
 [sub_resource type="CylinderShape" id=1]
-radius = 0.5
+radius = 0.231569
 
 [node name="boxer1" type="KinematicBody"]
-transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
+transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 2.59095, -1, 0 )
 script = ExtResource( 2 )
 
 [node name="Pivot" type="Spatial" parent="."]
