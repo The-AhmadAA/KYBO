@@ -1,5 +1,8 @@
 extends KinematicBody
 
+signal die
+
+export var boxer_health = 100
 # how fast the player moves in metres per second
 export var speed = 14
 # the downward acceleration when in the air, in metres per second square
@@ -39,18 +42,6 @@ func _physics_process(delta):
 	# vertical velocity
 	velocity.y -= fall_acceleration * delta
 	
-#	for index in range(get_slide_count()):
-#		# check every collision that occurred in this frame
-#		var collision = get_slide_collision(index)
-#
-#		# if we collide with a monster...
-#		if collision.collider.is_in_group("mob"):
-#			var mob = collision.collider
-#			# check if we are hitting from above
-#			if Vector3.UP.dot(collision.normal) > 0.1:
-#				# If so, we squash it and bounce
-#				mob.squash()
-#				velocity.y = bounce_impulse
 	
 	# Jumping
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
@@ -58,3 +49,17 @@ func _physics_process(delta):
 		
 	# moving the character
 	velocity = move_and_slide(velocity, Vector3.UP)
+
+func lose_health():
+	emit_signal("hit")
+	boxer_health -= 10
+	$AnimationPlayer.play("hit")
+	
+	if boxer_health <= 0:
+		die()
+func die():
+	emit_signal("die")
+	queue_free()
+	
+func _on_Area_body_entered(body):
+	lose_health()
