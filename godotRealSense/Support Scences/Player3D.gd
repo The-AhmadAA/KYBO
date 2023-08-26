@@ -12,7 +12,7 @@ var maximum_retry = 5
 var current_retry = 0
 var lerp_speed = 0.2
 var history_size = 5
-var max_hand_distance_from_face = 10
+var max_hand_distance_from_face = 4
 
 var hand_left_base_position = Vector3(-1.0, 0, 0) # adjust to your desired base position
 var hand_right_base_position = Vector3(1.0, 0, 0) # adjust to your desired base position
@@ -29,6 +29,12 @@ var position_history = {
 	"Hand_Right": []
 }
 
+var last_update = {
+	"Face" : 0,
+	"Hand_Left" : 0,
+	"Hand_Right" : 0
+}
+
 
 func normalize_position(pos: Vector3) -> Vector3:
 	return (pos - Vector3(0.5, 0.5, 0.5)) * 2
@@ -43,15 +49,25 @@ func _ready():
 	hand_left = $Hand_Left
 	hand_right = $Hand_Right
 	head = $Face
-	
 	var error = client.connect_to_host("127.0.0.1", port)
 	if error == OK:
 		print("Successfully connected to server!")
 	else:
 		printerr("Failed to connect to server. Error: ", error)
+	
+	last_update["Face"] = OS.get_system_time_msecs()
+	last_update["Hand_Left"] = OS.get_system_time_msecs()
+	last_update["Hand_Right"] = OS.get_system_time_msecs()
 		
 func update_hands_position(face_translation: Vector3):
 	# calculate hands' position based on face's translation and keep them within bounds
+	if OS.get_system_time_msecs() - last_update['Hand_Left'] > 100 and position_history["Hand_Left"].size() > 1:
+		last_received_left_hand_position -= position_history["Hand_Left"][-2] - position_history["Hand_Left"][-1]
+	
+	if OS.get_system_time_msecs() - last_update['Hand_Right'] > 100 and position_history["Hand_Right"].size() > 1:
+		last_received_right_hand_position -= position_history["Hand_Right"][-2] - position_history["Hand_Right"][-1]
+	
+	
 	var left_position = face_translation + hand_left_base_position + last_received_left_hand_position
 	var right_position = face_translation + hand_right_base_position + last_received_right_hand_position
 
@@ -102,11 +118,12 @@ func _process(delta):
 						#update_hands_position(target_translation)
 					elif type == "Hand_Left":
 						last_received_left_hand_position = normalize_position(averaged_position)
+						last_update["Hand_Left"] = OS.get_system_time_msecs()
 					elif type == "Hand_Right":
 						last_received_right_hand_position = normalize_position(averaged_position)
+						last_update["Hand_Right"] = OS.get_system_time_msecs()
 						
-					update_hands_position($Face.translation)
-
+				update_hands_position($Face.translation)
 	else:
 		if current_retry == 0:
 			print("Disconnected from server")

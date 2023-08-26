@@ -3,7 +3,7 @@ import mediapipe as mp
 import cv2
 import numpy as np
 import socket
-import atexit, time
+import atexit
 
 def normalize_coordinates(x, y, frame_width, frame_height):
     normalized_x = (x - frame_width / 2) / (frame_width / 2)
