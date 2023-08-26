@@ -10,7 +10,7 @@ import atexit
 def start_server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # Add this line
-    server_socket.bind(('localhost', 65440))
+    server_socket.bind(('localhost', 65442))
     server_socket.listen()
 
     print("Waiting for Godot...")
@@ -56,6 +56,16 @@ conn, server_socket = start_server()
 
 print(f"Connected, starting to capture images on SN: {device}")
 
+def cleanup():
+    print("Cleaning up...")
+    conn.close()
+    server_socket.close()
+    pipeline.stop()
+    print("Cleanup completed!")
+
+atexit.register(cleanup)
+
+
 # Your main loop
 while True:
     try:
@@ -85,7 +95,7 @@ while True:
                 y = int(middle_finger_knuckle.y * len(depth_image_flipped))
                 mfk_distance = depth_image_flipped[y,x] * depth_scale  # meters
 
-                conn.sendall(f"Hand_{hand_side},{round(x/stream_res_x, 8)},{round(y/stream_res_y, 8)},{round(mfk_distance, 5)}\n".encode())
+                conn.sendall(f"Hand_{hand_side},{round(x/stream_res_x, 8)},{round(y/stream_res_y, 8)},{round(mfk_distance, 5)}!!\n".encode())
                 print(f"Hand_{hand_side}")
 
                 #print(f"{hand_side} Hand Midpoint (x: {x}, y: {y}), Distance: {mfk_distance:.3f} meters")
@@ -96,7 +106,7 @@ while True:
                 center_x = int((faceLms.landmark[33].x + faceLms.landmark[263].x) * 0.5 * len(depth_image[0]))
                 center_y = int((faceLms.landmark[33].y + faceLms.landmark[263].y) * 0.5 * len(depth_image))
                 center_distance = depth_image[center_y, center_x] * depth_scale
-                conn.sendall(f"Face,{center_x/stream_res_x},{center_y/stream_res_y},{round(center_distance, 5)}\n".encode())
+                conn.sendall(f"Face,{center_x/stream_res_x},{center_y/stream_res_y},{round(center_distance, 5)}!!\n".encode())
 
                 #print(f"Face Center (x: {center_x}, y: {center_y}), Distance: {center_distance:.3f} meters")
 
