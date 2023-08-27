@@ -1,33 +1,30 @@
 extends KinematicBody
 
+const PORT : int = 65445
+const MAX_RETRY : int = 5
+const HISTORY_SIZE : int = 5
+const LERP_SPEED : float = 0.2
+
+const MAX_HAND_DISTANCE_FROM_FACE : int = 10
+const HAND_LEFT_BASE_POSITION : Vector3= Vector3(-1.0, 0, 0) # adjust to your desired base position
+const HAND_RIGHT_BASE_POSITION : Vector3 = Vector3(1.0, 0, 0) # adjust to your desired base position
+
 var client = StreamPeerTCP.new()
-
-# Child nodes
-var port = 65445
-var hand_left
-var hand_right
-var head
 var buffer = ""
-var maximum_retry = 5
 var current_retry = 0
-var lerp_speed = 0.2
-var history_size = 5
-var max_hand_distance_from_face = 10
 
-var hand_left_base_position = Vector3(-1.0, 0, 0) # adjust to your desired base position
-var hand_right_base_position = Vector3(1.0, 0, 0) # adjust to your desired base position
 var last_received_left_hand_position = Vector3(0,0,0) # Store the last received left hand position
 var last_received_right_hand_position = Vector3(0,0,0) # Store the last received right hand position
-
-
-
-var last_depth = 0
 
 var position_history = {
 	"Face": [],
 	"Hand_Left": [],
 	"Hand_Right": []
 }
+
+onready var head : KinematicBody = $Face
+onready var hand_right : KinematicBody = $Hand_Right
+onready var hand_left : KinematicBody = $Hand_Left
 
 
 func normalize_position(pos: Vector3) -> Vector3:
@@ -40,30 +37,26 @@ func array_to_string(arr: Array) -> String:
 	return s
 
 func _ready():
-	hand_left = $Hand_Left
-	hand_right = $Hand_Right
-	head = $Face
-	
-	var error = client.connect_to_host("127.0.0.1", port)
+	var error = client.connect_to_host("127.0.0.1", PORT)
 	if error == OK:
 		print("Successfully connected to server!")
 	else:
 		printerr("Failed to connect to server. Error: ", error)
-		
+
 func update_hands_position(face_translation: Vector3):
 	# calculate hands' position based on face's translation and keep them within bounds
-	var left_position = face_translation + hand_left_base_position + last_received_left_hand_position
-	var right_position = face_translation + hand_right_base_position + last_received_right_hand_position
+	var left_position = face_translation + HAND_LEFT_BASE_POSITION + last_received_left_hand_position
+	var right_position = face_translation + HAND_RIGHT_BASE_POSITION + last_received_right_hand_position
 
 	# Ensure the hands don't move too far from the face
-	if left_position.distance_to(face_translation) > max_hand_distance_from_face:
-		left_position = face_translation + (left_position - face_translation).normalized() * max_hand_distance_from_face
-	if right_position.distance_to(face_translation) > max_hand_distance_from_face:
-		right_position = face_translation + (right_position - face_translation).normalized() * max_hand_distance_from_face
+	if left_position.distance_to(face_translation) > MAX_HAND_DISTANCE_FROM_FACE:
+		left_position = face_translation + (left_position - face_translation).normalized() * MAX_HAND_DISTANCE_FROM_FACE
+	if right_position.distance_to(face_translation) > MAX_HAND_DISTANCE_FROM_FACE:
+		right_position = face_translation + (right_position - face_translation).normalized() * MAX_HAND_DISTANCE_FROM_FACE
+	
+	hand_left.translation = (left_position + Vector3(1.5, 0.0, -4.0))
+	hand_right.translation = (right_position + Vector3(1.0, 0.0, -4.0))
 
-	$Hand_Left.translation = (left_position + Vector3(1.5, 0.0, -4.0))
-	$Hand_Right.translation = (right_position + Vector3(1.0, 0.0, -4.0))
-		
 func _process(delta):
 	if client.get_status() == StreamPeerTCP.STATUS_CONNECTED:
 		if client.get_available_bytes() > 0:  # Check if there's data available
@@ -86,18 +79,18 @@ func _process(delta):
 					var position = Vector3(float(decoded_data[1]), float(decoded_data[2]), float(decoded_data[3]))
 					
 					# Store to history
-					if type in position_history and position_history[type].size() >= history_size:
+					if type in position_history and position_history[type].size() >= HISTORY_SIZE:
 						position_history[type].pop_front()
 					position_history[type].append(position)
-
+					
 					# Calculate averaged position based on past few frames for smoothing
 					var averaged_position = Vector3()
 					for pos in position_history[type]:
 						averaged_position += pos
 					averaged_position /= position_history[type].size()
-
+					
 					if type == "Face":
-						var target_translation = averaged_position.linear_interpolate(translation, lerp_speed)
+						var target_translation = averaged_position.linear_interpolate(translation, LERP_SPEED)
 						$Face.translation = target_translation
 						#update_hands_position(target_translation)
 					elif type == "Hand_Left":
@@ -106,11 +99,11 @@ func _process(delta):
 						last_received_right_hand_position = normalize_position(averaged_position)
 						
 					update_hands_position($Face.translation)
-
+	
 	else:
 		if current_retry == 0:
 			print("Disconnected from server")
-		var error = client.connect_to_host("localhost", port)
+		var error = client.connect_to_host("localhost", PORT)
 		if error == OK:
 			print("Reconnected to server!")
 			current_retry = 0
