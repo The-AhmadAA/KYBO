@@ -22,7 +22,14 @@ var position_history = {
 	"Hand_Right": []
 }
 
-onready var head : KinematicBody = $Face
+var last_update = {
+	"Face" : 0,
+	"Hand_Left" : 0,
+	"Hand_Right" : 0
+}
+
+
+onready var head : MeshInstance = $Face
 onready var hand_right : KinematicBody = $Hand_Right
 onready var hand_left : KinematicBody = $Hand_Left
 
@@ -42,9 +49,20 @@ func _ready():
 		print("Successfully connected to server!")
 	else:
 		printerr("Failed to connect to server. Error: ", error)
+		
+	last_update["Face"] = OS.get_system_time_msecs()
+	last_update["Hand_Left"] = OS.get_system_time_msecs()
+	last_update["Hand_Right"] = OS.get_system_time_msecs()
 
 func update_hands_position(face_translation: Vector3):
 	# calculate hands' position based on face's translation and keep them within bounds
+	if OS.get_system_time_msecs() - last_update['Hand_Left'] > 100 and position_history["Hand_Left"].size() > 1:
+		last_received_left_hand_position -= position_history["Hand_Left"][-2] - position_history["Hand_Left"][-1]
+	
+	if OS.get_system_time_msecs() - last_update['Hand_Right'] > 100 and position_history["Hand_Right"].size() > 1:
+		last_received_right_hand_position -= position_history["Hand_Right"][-2] - position_history["Hand_Right"][-1]
+	
+	
 	var left_position = face_translation + HAND_LEFT_BASE_POSITION + last_received_left_hand_position
 	var right_position = face_translation + HAND_RIGHT_BASE_POSITION + last_received_right_hand_position
 
@@ -95,8 +113,11 @@ func _process(delta):
 						#update_hands_position(target_translation)
 					elif type == "Hand_Left":
 						last_received_left_hand_position = normalize_position(averaged_position)
+						last_update["Hand_Left"] = OS.get_system_time_msecs()
 					elif type == "Hand_Right":
 						last_received_right_hand_position = normalize_position(averaged_position)
+						last_update["Hand_Right"] = OS.get_system_time_msecs()
+						
 						
 					update_hands_position($Face.translation)
 	

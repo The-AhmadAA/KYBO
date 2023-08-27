@@ -123,7 +123,7 @@ func _process(delta):
 						last_received_right_hand_position = normalize_position(averaged_position)
 						last_update["Hand_Right"] = OS.get_system_time_msecs()
 						
-				update_hands_position($Face.translation)
+			update_hands_position($Face.translation)
 	else:
 		if current_retry == 0:
 			print("Disconnected from server")
