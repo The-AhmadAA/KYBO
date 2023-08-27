@@ -24,6 +24,8 @@ var last_recieved = {
 	"Hand_Right" : 0
 }
 
+var prev_time_recieved = 0
+
 
 onready var head : MeshInstance = $Face
 onready var hand_right : KinematicBody = $Hand_Right
@@ -32,36 +34,50 @@ onready var hand_left : KinematicBody = $Hand_Left
 
 func _process(delta):
 	# Check that there is an opponent to move
-	update_hands_position($Face.translation)
+	update_hands_position()
 
 func recieve_state(player_state) -> void:
-	var type = player_state['state']
 	var time = player_state['time']
-	var position = player_state['position']
+	var position = Vector3(0, 0, 0)
+	if prev_time_recieved < time:
+		prev_time_recieved = time
+		for type in ['Hands_Left', 'Hands_Right', 'Face']:
+			position = player_state['type']
+			if type in position_history and position_history[type].size() >= HISTORY_SIZE:
+				position_history[type].pop_front()
+			position_history[type].append(position)
+			
+	#var type = player_state['state']
+	#var time = player_state['time']
+	#var position = player_state['position']
 	
-	if last_recieved[type] < time:
-		last_recieved[type] = time
-		last_update[type] = OS.get_ticks_msec()
-		# Store to history
-		if type in position_history and position_history[type].size() >= HISTORY_SIZE:
-			position_history[type].pop_front()
-		position_history[type].append(position)
+	#if last_recieved[type] < time:
+	#	last_recieved[type] = time
+	#	last_update[type] = OS.get_ticks_msec()
+	#	# Store to history
+	#	if type in position_history and position_history[type].size() >= HISTORY_SIZE:
+	#		position_history[type].pop_front()
+	#	position_history[type].append(position)
+		
 	
 
 func update_hands_position():
+	#var offset = 0
 	# calculate hands' position based on face's translation and keep them within bounds
-	var left_position = face_translation + HAND_LEFT_BASE_POSITION + last_received_left_hand_position
-	var right_position = face_translation + HAND_RIGHT_BASE_POSITION + last_received_right_hand_position
-
-	var averaged_position = Vector3()
-	# Ensure the hands don't move too far from the face
-	if left_position.distance_to(face_translation) > MAX_HAND_DISTANCE_FROM_FACE:
-		left_position = face_translation + (left_position - face_translation).normalized() * MAX_HAND_DISTANCE_FROM_FACE
-	if right_position.distance_to(face_translation) > MAX_HAND_DISTANCE_FROM_FACE:
-		right_position = face_translation + (right_position - face_translation).normalized() * MAX_HAND_DISTANCE_FROM_FACE
+	#if OS.get_system_time_msecs() - last_update['Hand_Left'] > 100 and position_history["Hand_Left"].size() > 1:
+	#	offset = position_history["Hand_Left"][-2] - position_history["Hand_Left"][-1]
 	
-	hand_left.translation = (left_position + Vector3(1.5, 0.0, -4.0))
-	hand_right.translation = (right_position + Vector3(1.0, 0.0, -4.0))
-
-func get_position_data(position : Dictionary) -> void:
-	pass
+	#if OS.get_system_time_msecs() - last_update['Hand_Right'] > 100 and position_history["Hand_Right"].size() > 1:
+	#	offset = position_history["Hand_Right"][-2] - position_history["Hand_Right"][-1]
+	
+	#var averaged_position = Vector3()
+	#var new_positions = {'Hand_Left' : 0, 'Hand_Right' : 0, 'Face' : 0}
+	#for type in ['Hand_Left', 'Hand_Right', 'Face']:
+	#	for pos in position_history[type]:
+	#		averaged_position += pos
+	#	averaged_position /= position_history[type].size()
+	
+	
+	head.translation = position_history['Face'][-1]
+	hand_left.translation = position_history['Hand_Left'][-1] + Vector3(1.5, 0.0, -4.0)
+	hand_right.translation = position_history['Hand_Right'][-1] + Vector3(1.0, 0.0, -4.0)

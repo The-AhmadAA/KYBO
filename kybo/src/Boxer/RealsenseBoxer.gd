@@ -74,6 +74,12 @@ func update_hands_position(face_translation: Vector3):
 	
 	hand_left.translation = (left_position + Vector3(1.5, 0.0, -4.0))
 	hand_right.translation = (right_position + Vector3(1.0, 0.0, -4.0))
+	if Global.opponent != null:
+		Global.SendPlayerState({"time" : OS.get_ticks_msec(), 
+								"Hand_Left" : hand_left.translation,
+								"Hand_Right": hand_right.translation,
+								"Face": head.translation
+								})
 
 func _process(delta):
 	if client.get_status() == StreamPeerTCP.STATUS_CONNECTED:
@@ -118,8 +124,9 @@ func _process(delta):
 						last_received_right_hand_position = normalize_position(averaged_position)
 						last_update["Hand_Right"] = OS.get_system_time_msecs()
 						
-						
-					update_hands_position($Face.translation)
+				
+				update_hands_position($Face.translation)
+				
 	
 	else:
 		if current_retry == 0:
