@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/boxing-gloves-hit.mp3-4132813ac5deeadeffbd7c47b35ad04d.mp3str"
+
+[deps]
+
+source_file="res://Audio/boxing-gloves-hit.mp3"
+dest_files=[ "res://.import/boxing-gloves-hit.mp3-4132813ac5deeadeffbd7c47b35ad04d.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

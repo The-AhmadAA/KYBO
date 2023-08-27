@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/boxing-punch.mp3-741f65e3f331803778a573332f034314.mp3str"
+
+[deps]
+
+source_file="res://Audio/boxing-punch.mp3"
+dest_files=[ "res://.import/boxing-punch.mp3-741f65e3f331803778a573332f034314.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
