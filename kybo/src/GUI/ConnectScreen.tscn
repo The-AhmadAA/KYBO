@@ -4,12 +4,12 @@
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-[node name="GUI" type="Control"]
+[node name="GUI" type="Control" groups=["DEBUG"]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
 
-[node name="ConnectionButtons" type="ColorRect" parent="."]
+[node name="ConnectionButtons" type="ColorRect" parent="." groups=["connection_screen"]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.254902, 0.254902, 0.254902, 0.827451 )

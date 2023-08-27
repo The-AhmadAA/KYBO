@@ -8,29 +8,19 @@ var ip : String = "127.0.0.1"
 var port : int = 1909
 var max_players : int = 2
 
-onready var DEBUG_LABEL : TextEdit = $DEBUG
-onready var gui : ColorRect = $ConnectionButtons
 
-func _debug_display_message(message : String) -> void:
-	DEBUG_LABEL.text += message + "\n"
-	print(message)
-
-
-# Sorry, threw it all in one script for now XD
-# Should be sepparted into 2 scripts (host & client)
-# And have these scripts added to the root scene depending on button pressed
 # =================== Server Hosting ===================
 # Host the server
 
 func create_server() -> void:
-	network = NetworkedMultiplayerENet.new()
-	
 	# Start the server
+	network = NetworkedMultiplayerENet.new()
 	network.create_server(port, max_players)
 	get_tree().set_network_peer(network)
 	
-	_debug_display_message("Server started on " + ip + " on port " + str(port))
-	gui.hide()
+	# Messages
+	get_tree().call_group("DEBUG", "_debug_display_message", "Server started on " + ip + " on port " + str(port))
+	get_tree().call_group("connection_screen", "hide")
 	
 	# Connect the event of peers dis/connection to their respective functions
 	network.connect('peer_connected', self, '_PeerConnected')
@@ -38,11 +28,12 @@ func create_server() -> void:
 
 func _PeerConnected(player_id):
 	Global.opponent = player_id
-	_debug_display_message("Challenger approaches!")
+	get_tree().call_group("DEBUG", "_debug_display_message", "Challenger approaches!")
+	get_tree().call_group("connection_screen", "hide")
 
-func _PeerDisconnected(player_id):
+func _PeerDisconnected(_player_id):
 	Global.opponent = null
-	_debug_display_message("Opponent has fled!")
+	get_tree().call_group("DEBUG", "_debug_display_message", "Opponent has fled!")
 
 
 # =================== Joining Client ===================
@@ -54,14 +45,13 @@ func join_server() -> void:
 	network.connect('connection_failed', self, '_OnConnectionFailed')
 	network.connect('connection_succeeded', self, '_OnConnectionSuccessful')
 
-
 func _OnConnectionFailed():
-	_debug_display_message("Join Failed")
-	gui.show()
+	get_tree().call_group("DEBUG", "_debug_display_message", "Join failed")
+	get_tree().call_group("connection_screen", "show")
 
 func _OnConnectionSuccessful():
-	_debug_display_message("Join successful")
-	gui.hide()
+	get_tree().call_group("DEBUG", "_debug_display_message", "Join successful")
+	get_tree().call_group("connection_screen", "hide")
 
 
 # =================== State Communication ===================
@@ -76,12 +66,3 @@ func SendPlayerState(player_state):
 	
 remote func RecievePlayerState(player_state):
 	get_tree().call_group("opponent", "recieve_state", player_state)
-
-func send_state():
-	# Send posistion of hands, and head in global(?) space?
-	# call the player node to send this into
-	pass
-
-func get_state():
-	# Get position of hands
-	pass
