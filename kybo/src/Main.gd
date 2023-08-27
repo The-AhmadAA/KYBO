@@ -24,3 +24,11 @@ func _input(event):
 	if event.is_action_pressed("ui_accept") and $UserInterface/Retry.visible:
 		# Restart the scene
 		get_tree().reload_current_scene()
+
+
+func _on_boxer2_die2():
+	pass # Replace with function body.
+
+
+func _on_boxer2_hit2():
+	pass # Replace with function body.

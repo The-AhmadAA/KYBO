@@ -1,10 +1,12 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://boxer1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Main Scenes/Level.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ScoreLabel.gd" type="Script" id=4]
 [ext_resource path="res://Audio/boxing-punch.mp3" type="AudioStream" id=5]
+[ext_resource path="res://boxer2.gd" type="Script" id=6]
+[ext_resource path="res://P1Health.gd" type="Script" id=7]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 30, 2, 30 )
@@ -47,6 +49,13 @@ func _ready():
 
 func _on_boxer1_hit():
 	play() # Replace with function body.
+
+#func _on_boxer2_hit():
+#	play()
+
+
+func _on_boxer2_hit2():
+	pass # Replace with function body.
 "
 
 [node name="Main" type="Node"]
@@ -104,8 +113,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.2833, 41.9905 )
 transform = Transform( -4.96705, 0, -0.57304, 0, 5, 0, 0.57304, 0, -4.96705, 0.0692595, -0.814078, 1.65164 )
 
 [node name="boxer2" parent="." instance=ExtResource( 2 )]
-transform = Transform( 2, 0, 3.49692e-07, 0, 2, 0, -3.49692e-07, 0, 2, 1.13506, -1, 13.9892 )
-script = null
+transform = Transform( 5, 0, 8.7423e-07, 0, 5, 0, -8.7423e-07, 0, 5, 1.13506, -1, 13.9892 )
+script = ExtResource( 6 )
 
 [node name="Spatial" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08364, 8.3709, 7.7915 )
@@ -120,19 +129,32 @@ margin_bottom = 1.0
 mouse_filter = 2
 
 [node name="ScoreLabel" type="Label" parent="UserInterface"]
-margin_right = 131.0
-margin_bottom = 51.0
+margin_left = 2.0
+margin_top = 1.0
+margin_right = 133.0
+margin_bottom = 52.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Score: 0 
 
 Keep Your Block On"
 script = ExtResource( 4 )
 
+[node name="P1Health" type="Label" parent="UserInterface"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -600.0
+margin_top = 11.0
+margin_right = -493.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.0117647, 0, 0, 1 )
+text = "HP : 100"
+script = ExtResource( 7 )
+
 [node name="Retry" type="ColorRect" parent="UserInterface"]
-anchor_left = -0.0107422
-anchor_top = -0.015
-anchor_right = 0.989258
-anchor_bottom = 0.985
+anchor_left = -0.0117188
+anchor_top = -0.00833333
+anchor_right = 0.988281
+anchor_bottom = 0.991667
 margin_left = 10.0
 margin_top = 6.0
 margin_right = 10.0
@@ -165,3 +187,8 @@ script = SubResource( 9 )
 [connection signal="die" from="boxer1" to="UserInterface/ScoreLabel" method="_on_boxer1_die"]
 [connection signal="hit" from="boxer1" to="UserInterface/ScoreLabel" method="_on_boxer1_hit"]
 [connection signal="hit" from="boxer1" to="GettingHit" method="_on_boxer1_hit"]
+[connection signal="die2" from="boxer2" to="." method="_on_boxer2_die2"]
+[connection signal="die2" from="boxer2" to="UserInterface/P1Health" method="_on_boxer2_die2"]
+[connection signal="hit2" from="boxer2" to="." method="_on_boxer2_hit2"]
+[connection signal="hit2" from="boxer2" to="GettingHit" method="_on_boxer2_hit2"]
+[connection signal="hit2" from="boxer2" to="UserInterface/P1Health" method="_on_boxer2_hit2"]
