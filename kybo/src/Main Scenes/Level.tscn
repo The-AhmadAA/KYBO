@@ -44,7 +44,6 @@ __meta__ = {
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.90912, 0.416535, 0, -0.416535, 0.90912, 0, 3.52406, 5.84508 )
-current = true
 
 [node name="GUI" parent="." instance=ExtResource( 4 )]
 
