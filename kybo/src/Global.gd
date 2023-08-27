@@ -22,6 +22,9 @@ func create_server() -> void:
 	get_tree().call_group("DEBUG", "_debug_display_message", "Server started on " + ip + " on port " + str(port))
 	get_tree().call_group("connection_screen", "hide")
 	
+	# Claim Musk
+	get_tree().call_group("Main", "set_character", "Musk")
+	
 	# Connect the event of peers dis/connection to their respective functions
 	network.connect('peer_connected', self, '_PeerConnected')
 	network.connect('peer_disconnected', self, '_PeerDisconnected')
@@ -42,11 +45,14 @@ func join_server() -> void:
 	network.create_client(ip, port)
 	get_tree().set_network_peer(network)
 	
+	# Claim Musk
+	get_tree().call_group("Main", "set_character", "Zucc")
+	
 	network.connect('connection_failed', self, '_OnConnectionFailed')
 	network.connect('connection_succeeded', self, '_OnConnectionSuccessful')
 
 func _OnConnectionFailed():
-	Global.opponent = false
+	Global.opponent = null
 	get_tree().call_group("DEBUG", "_debug_display_message", "Join failed")
 	get_tree().call_group("connection_screen", "show")
 

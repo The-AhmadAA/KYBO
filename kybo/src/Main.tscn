@@ -49,13 +49,6 @@ func _ready():
 
 func _on_boxer1_hit():
 	play() # Replace with function body.
-
-#func _on_boxer2_hit():
-#	play()
-
-
-func _on_boxer2_hit2():
-	pass # Replace with function body.
 "
 
 [node name="Main" type="Node"]
@@ -190,5 +183,5 @@ script = SubResource( 9 )
 [connection signal="die2" from="boxer2" to="." method="_on_boxer2_die2"]
 [connection signal="die2" from="boxer2" to="UserInterface/P1Health" method="_on_boxer2_die2"]
 [connection signal="hit2" from="boxer2" to="." method="_on_boxer2_hit2"]
-[connection signal="hit2" from="boxer2" to="GettingHit" method="_on_boxer2_hit2"]
 [connection signal="hit2" from="boxer2" to="UserInterface/P1Health" method="_on_boxer2_hit2"]
+[connection signal="hit2" from="boxer2" to="GettingHit" method="_on_boxer2_hit2"]

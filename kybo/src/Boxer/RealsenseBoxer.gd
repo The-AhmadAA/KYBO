@@ -28,10 +28,9 @@ var last_update = {
 	"Hand_Right" : 0
 }
 
-
-onready var head : MeshInstance = $Face
-onready var hand_right : KinematicBody = $Hand_Right
-onready var hand_left : KinematicBody = $Hand_Left
+var head : MeshInstance
+var hand_right : KinematicBody
+var hand_left : KinematicBody
 
 
 func normalize_position(pos: Vector3) -> Vector3:
@@ -43,7 +42,7 @@ func array_to_string(arr: Array) -> String:
 		s += char(i)
 	return s
 
-func _ready():
+func _init() -> void:
 	var error = client.connect_to_host("127.0.0.1", PORT)
 	if error == OK:
 		print("Successfully connected to server!")
@@ -53,6 +52,12 @@ func _ready():
 	last_update["Face"] = OS.get_system_time_msecs()
 	last_update["Hand_Left"] = OS.get_system_time_msecs()
 	last_update["Hand_Right"] = OS.get_system_time_msecs()
+	
+	head = $Face
+	hand_right = $Hand_Right
+	hand_left = $Hand_Left
+	
+	set_process(true)
 
 func update_hands_position(face_translation: Vector3):
 	# calculate hands' position based on face's translation and keep them within bounds
