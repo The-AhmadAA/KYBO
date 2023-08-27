@@ -49,6 +49,13 @@ func _ready():
 
 func _on_boxer1_hit():
 	play() # Replace with function body.
+
+#func _on_boxer2_hit():
+#	play()
+
+
+func _on_boxer2_hit2():
+	pass # Replace with function body.
 "
 
 [node name="Main" type="Node"]

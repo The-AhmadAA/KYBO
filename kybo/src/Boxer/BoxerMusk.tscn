@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assests/Fist.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://Assests/elon_musk_face_3d_-_your_personal_elon_head.glb" type="PackedScene" id=3]
@@ -7,6 +7,12 @@
 radius = 0.5
 
 [sub_resource type="Skin" id=3]
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_color = Color( 0.952941, 0.803922, 0.803922, 1 )
+
+[sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 0.952941, 0.803922, 0.803922, 1 )
 
 [sub_resource type="BoxShape" id=5]
 
@@ -36,6 +42,7 @@ transform = Transform( 1.48682e-09, -0.0227919, -0.131609, -2.16744e-10, -0.1563
 mesh = ExtResource( 2 )
 skin = SubResource( 3 )
 skeleton = NodePath("")
+material/0 = SubResource( 7 )
 
 [node name="Hand_Right" type="KinematicBody" parent="."]
 transform = Transform( -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 1, 0, 0 )
@@ -48,6 +55,7 @@ transform = Transform( 0.000239754, -0.00716104, -0.132863, 0.00527968, -0.15769
 mesh = ExtResource( 2 )
 skin = SubResource( 3 )
 skeleton = NodePath("")
+material/0 = SubResource( 8 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 0.418, 0, 0, 0, 1.016, 0, 0, 0, 0.509, 0, 0, 0 )
