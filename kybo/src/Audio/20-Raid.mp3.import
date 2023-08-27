@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/20-Raid.mp3-136d1b0b68be0c511c72d9f46e7a95c3.mp3str"
+
+[deps]
+
+source_file="res://Audio/20-Raid.mp3"
+dest_files=[ "res://.import/20-Raid.mp3-136d1b0b68be0c511c72d9f46e7a95c3.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

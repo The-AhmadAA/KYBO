@@ -93,6 +93,7 @@ margin_left = 1.0
 margin_top = 1.0
 margin_right = 1.0
 margin_bottom = 1.0
+mouse_filter = 2
 
 [node name="ScoreLabel" type="Label" parent="UserInterface"]
 margin_right = 131.0
@@ -119,15 +120,17 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="UserInterface/Retry"]
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -34.5
-margin_top = -15.5
-margin_right = 34.5
-margin_bottom = 15.5
+anchor_bottom = 1.0
+margin_left = -122.0
+margin_top = -66.0
+margin_right = 119.0
+margin_bottom = -35.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "Win
-Play again?"
+Press space to Delete another person"
 align = 1
 
 [connection signal="die" from="boxer1" to="." method="_on_boxer1_die"]
