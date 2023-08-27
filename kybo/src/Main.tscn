@@ -133,27 +133,27 @@ margin_left = 2.0
 margin_top = 1.0
 margin_right = 133.0
 margin_bottom = 52.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Score: 0 
 
 Keep Your Block On"
 script = ExtResource( 4 )
 
 [node name="P1Health" type="Label" parent="UserInterface"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -600.0
-margin_top = 11.0
-margin_right = -493.0
-margin_bottom = 25.0
-custom_colors/font_color = Color( 0.0117647, 0, 0, 1 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -53.5
+margin_right = 53.5
+margin_bottom = 14.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "HP : 100"
+align = 1
 script = ExtResource( 7 )
 
 [node name="Retry" type="ColorRect" parent="UserInterface"]
-anchor_left = -0.0117188
+anchor_left = -0.00976563
 anchor_top = -0.00833333
-anchor_right = 0.988281
+anchor_right = 0.990235
 anchor_bottom = 0.991667
 margin_left = 10.0
 margin_top = 6.0
