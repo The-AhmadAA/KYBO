@@ -83,4 +83,4 @@ transform = Transform( 2, 0, 3.49692e-07, 0, 2, 0, -3.49692e-07, 0, 2, 1.13506, 
 script = null
 
 [node name="Spatial" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08364, 6.39282, 7.7915 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08364, 8.3709, 7.7915 )
