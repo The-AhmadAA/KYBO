@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Main Scenes/Level.gd" type="Script" id=1]
-[ext_resource path="res://Assests/10494_Regulation_Boxing_Ring_SG_V1_Max2011_it2.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://Assests/boxing_ring.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://Assests/boxing_ring.jpg" type="Texture" id=3]
 [ext_resource path="res://GUI/ConnectScreen.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assests/crowd_bg.jpg" type="Texture" id=5]
 [ext_resource path="res://Boxer/BoxerZucc.tscn" type="PackedScene" id=6]
@@ -14,6 +15,11 @@ panorama = ExtResource( 5 )
 background_mode = 2
 background_sky = SubResource( 5 )
 
+[sub_resource type="Skin" id=6]
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_texture = ExtResource( 3 )
+
 [node name="Spatial" type="Spatial" groups=["Main"]]
 script = ExtResource( 1 )
 
@@ -22,13 +28,23 @@ environment = SubResource( 3 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="WorldEnvironment"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 6.60789, 0 )
+light_energy = 0.56
 
-[node name="BoxingRing" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.695954, -2.94979, 0 )
+[node name="OmniLight" type="OmniLight" parent="WorldEnvironment"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.71788, 0 )
+omni_range = 10.0
 
-[node name="MeshInstance" type="MeshInstance" parent="BoxingRing"]
-transform = Transform( -0.017, -2.56693e-09, -1.25404e-16, 0, -7.43094e-10, 0.019, -2.56693e-09, 0.017, 8.30516e-10, 0.089, -0.485, -0.531 )
+[node name="OmniLight2" type="OmniLight" parent="WorldEnvironment"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.66072, 1.71788, 0 )
+
+[node name="OmniLight3" type="OmniLight" parent="WorldEnvironment"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.86314, 1.71788, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( -0.025, 3.7749e-09, 9.90035e-17, 0, -1.09278e-09, 0.015, 3.7749e-09, 0.025, 6.55671e-10, 0.947944, -4.07317, -0.750462 )
 mesh = ExtResource( 2 )
+skin = SubResource( 6 )
+material/0 = SubResource( 7 )
 
 [node name="Musk" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
