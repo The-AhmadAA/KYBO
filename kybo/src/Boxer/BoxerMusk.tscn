@@ -26,7 +26,10 @@ __meta__ = {
 }
 
 [node name="Camera" type="Camera" parent="Face"]
-transform = Transform( 2, 0, 0, 0, 1.93821, 0.493287, 0, -0.493287, 1.93821, 0, 4.14422, 9.93032 )
+transform = Transform( 2, 0, 0, 0, 1.8037, 0.864108, 0, -0.864108, 1.8037, 0, 5.607, 5.04764 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="elon_musk_face_3d_-_your_personal_elon_head" parent="Face" instance=ExtResource( 3 )]
 transform = Transform( -0.025, 0, -3.7749e-09, 0, 0.025, 0, 3.7749e-09, 0, -0.025, -2.22773, 2.03844, 1.07193 )

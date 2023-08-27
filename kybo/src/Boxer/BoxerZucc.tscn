@@ -23,7 +23,7 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.371, 0 )
 skeleton = NodePath("")
 
 [node name="Camera" type="Camera" parent="Face"]
-transform = Transform( 2, 0, 0, 0, 1.93821, 0.493287, 0, -0.493287, 1.93821, 0, 4.14422, 9.93032 )
+transform = Transform( 2, 0, 0, 0, 1.8037, 0.864108, 0, -0.864108, 1.8037, 0, 5.607, 5.04764 )
 __meta__ = {
 "_editor_description_": ""
 }
