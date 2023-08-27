@@ -28,6 +28,8 @@ func _process(delta):
 	
 	update_hands_position($Face.translation)
 
+func recieve_state(player_state) -> void:
+	print(player_state)
 
 func update_hands_position(face_translation: Vector3):
 	# calculate hands' position based on face's translation and keep them within bounds

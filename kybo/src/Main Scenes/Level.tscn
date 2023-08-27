@@ -19,7 +19,7 @@ shape = SubResource( 1 )
 
 [node name="RealsenseBoxer" parent="." instance=ExtResource( 2 )]
 
-[node name="OpponentBoxer" parent="." instance=ExtResource( 2 )]
+[node name="OpponentBoxer" parent="." groups=["opponent"] instance=ExtResource( 2 )]
 script = ExtResource( 3 )
 
 [node name="Camera" type="Camera" parent="."]
