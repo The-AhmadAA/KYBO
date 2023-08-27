@@ -17,6 +17,8 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://Global.gd"
+Bgm="*res://Bgm.tscn"
+<<<<<<<HEADBgm="*res://Bgm.tscn"
 
 [gui]
 
