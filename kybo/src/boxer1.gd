@@ -1,6 +1,7 @@
 extends KinematicBody
 
 signal die
+signal hit
 
 export var boxer_health = 100
 # how fast the player moves in metres per second
