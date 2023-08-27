@@ -1,15 +1,63 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Main Scenes/Level.gd" type="Script" id=1]
 [ext_resource path="res://Boxer/Boxer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Boxer/OpponentBoxer.gd" type="Script" id=3]
 [ext_resource path="res://GUI/ConnectScreen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assests/crowd_bg.jpg" type="Texture" id=5]
+
+[sub_resource type="PanoramaSky" id=5]
+panorama = ExtResource( 5 )
+
+[sub_resource type="Environment" id=3]
+background_mode = 2
+background_sky = SubResource( 5 )
+
+[sub_resource type="CylinderMesh" id=2]
+top_radius = 20.0
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_texture = ExtResource( 5 )
 
 [sub_resource type="BoxShape" id=1]
 margin = 0.001
 
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 1 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="WorldEnvironment"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 6.60789, 0 )
+
+[node name="BoxingRing" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.94979, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="BoxingRing"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+mesh = SubResource( 2 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="BoxingRing"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.90845, 0 )
+visible = false
+invert_faces = true
+radius = 40.0
+height = 30.0
+sides = 30
+material = SubResource( 4 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="BoxingRing/CSGCylinder"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.2931, 0 )
+visible = false
+operation = 2
+invert_faces = true
+radius = 44.4342
+height = 10.0
+sides = 30
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="Area" type="Area" parent="."]
 
@@ -18,8 +66,10 @@ transform = Transform( 6.819, 0, 0, 0, 0.066, 0, 0, 0, 8.174, 0, -1.445, -0.022 
 shape = SubResource( 1 )
 
 [node name="RealsenseBoxer" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
 
 [node name="OpponentBoxer" parent="." groups=["opponent"] instance=ExtResource( 2 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -2 )
 script = ExtResource( 3 )
 
 [node name="Camera" type="Camera" parent="."]
