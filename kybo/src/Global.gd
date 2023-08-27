@@ -46,10 +46,12 @@ func join_server() -> void:
 	network.connect('connection_succeeded', self, '_OnConnectionSuccessful')
 
 func _OnConnectionFailed():
+	Global.opponent = false
 	get_tree().call_group("DEBUG", "_debug_display_message", "Join failed")
 	get_tree().call_group("connection_screen", "show")
 
 func _OnConnectionSuccessful():
+	Global.opponent = 1
 	get_tree().call_group("DEBUG", "_debug_display_message", "Join successful")
 	get_tree().call_group("connection_screen", "hide")
 

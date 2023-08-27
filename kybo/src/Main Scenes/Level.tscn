@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Main Scenes/Level.gd" type="Script" id=1]
 [ext_resource path="res://Boxer/Boxer.tscn" type="PackedScene" id=2]
@@ -15,9 +15,6 @@ background_sky = SubResource( 5 )
 
 [sub_resource type="CylinderMesh" id=2]
 top_radius = 20.0
-
-[sub_resource type="SpatialMaterial" id=4]
-albedo_texture = ExtResource( 5 )
 
 [sub_resource type="BoxShape" id=1]
 margin = 0.001
@@ -37,27 +34,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.94979, 0 )
 [node name="MeshInstance" type="MeshInstance" parent="BoxingRing"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 mesh = SubResource( 2 )
-
-[node name="CSGCylinder" type="CSGCylinder" parent="BoxingRing"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.90845, 0 )
-visible = false
-invert_faces = true
-radius = 40.0
-height = 30.0
-sides = 30
-material = SubResource( 4 )
-
-[node name="CSGCylinder" type="CSGCylinder" parent="BoxingRing/CSGCylinder"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.2931, 0 )
-visible = false
-operation = 2
-invert_faces = true
-radius = 44.4342
-height = 10.0
-sides = 30
-__meta__ = {
-"_editor_description_": ""
-}
 
 [node name="Area" type="Area" parent="."]
 
