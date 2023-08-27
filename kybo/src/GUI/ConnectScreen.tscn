@@ -33,8 +33,8 @@ drag_and_drop_selection_enabled = false
 wrap_enabled = true
 
 [node name="Screen" type="TextureRect" parent="."]
-margin_right = 1018.0
-margin_bottom = 592.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 5 )
 expand = true
 
