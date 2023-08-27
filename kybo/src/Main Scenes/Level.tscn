@@ -5,6 +5,7 @@
 [ext_resource path="res://Boxer/OpponentBoxer.gd" type="Script" id=3]
 [ext_resource path="res://GUI/ConnectScreen.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assests/crowd_bg.jpg" type="Texture" id=5]
+[ext_resource path="res://Assests/10494_Regulation_Boxing_Ring_SG_V1_Max2011_it2.obj" type="ArrayMesh" id=6]
 
 [sub_resource type="PanoramaSky" id=5]
 panorama = ExtResource( 5 )
@@ -12,9 +13,6 @@ panorama = ExtResource( 5 )
 [sub_resource type="Environment" id=3]
 background_mode = 2
 background_sky = SubResource( 5 )
-
-[sub_resource type="CylinderMesh" id=2]
-top_radius = 20.0
 
 [sub_resource type="BoxShape" id=1]
 margin = 0.001
@@ -32,8 +30,8 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 6.60
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.94979, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="BoxingRing"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
-mesh = SubResource( 2 )
+transform = Transform( -0.017, -2.56693e-09, -1.25404e-16, 0, -7.43094e-10, 0.019, -2.56693e-09, 0.017, 8.30516e-10, 0.089, -0.485, -0.531 )
+mesh = ExtResource( 6 )
 
 [node name="Area" type="Area" parent="."]
 
@@ -45,7 +43,7 @@ shape = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
 
 [node name="OpponentBoxer" parent="." groups=["opponent"] instance=ExtResource( 2 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -2 )
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, -2 )
 script = ExtResource( 3 )
 
 [node name="Camera" type="Camera" parent="."]
