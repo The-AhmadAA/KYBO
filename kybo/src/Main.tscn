@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://boxer1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Main Scenes/Level.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ScoreLabel.gd" type="Script" id=4]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 30, 2, 30 )
@@ -76,7 +77,7 @@ transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.2833, 41.9905 )
 
 [node name="boxer1" parent="." instance=ExtResource( 2 )]
-transform = Transform( -4.96705, 0, -0.57304, 0, 5, 0, 0.57304, 0, -4.96705, 0.0692595, -0.814078, 3.65164 )
+transform = Transform( -4.96705, 0, -0.57304, 0, 5, 0, 0.57304, 0, -4.96705, 0.0692595, -0.814078, 1.65164 )
 
 [node name="boxer2" parent="." instance=ExtResource( 2 )]
 transform = Transform( 2, 0, 3.49692e-07, 0, 2, 0, -3.49692e-07, 0, 2, 1.13506, -1, 13.9892 )
@@ -84,3 +85,51 @@ script = null
 
 [node name="Spatial" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08364, 8.3709, 7.7915 )
+
+[node name="UserInterface" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1.0
+margin_bottom = 1.0
+
+[node name="ScoreLabel" type="Label" parent="UserInterface"]
+margin_right = 131.0
+margin_bottom = 51.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Score: 0 
+
+Keep Your Block On"
+script = ExtResource( 4 )
+
+[node name="Retry" type="ColorRect" parent="UserInterface"]
+anchor_left = -0.0107422
+anchor_top = -0.015
+anchor_right = 0.989258
+anchor_bottom = 0.985
+margin_left = 10.0
+margin_top = 6.0
+margin_right = 10.0
+margin_bottom = 6.0
+color = Color( 0.639216, 0.639216, 0.639216, 0.509804 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="UserInterface/Retry"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -34.5
+margin_top = -15.5
+margin_right = 34.5
+margin_bottom = 15.5
+text = "Win
+Play again?"
+align = 1
+
+[connection signal="die" from="boxer1" to="." method="_on_boxer1_die"]
+[connection signal="die" from="boxer1" to="UserInterface/ScoreLabel" method="_on_boxer1_die"]
+[connection signal="hit" from="boxer1" to="UserInterface/ScoreLabel" method="_on_boxer1_hit"]
