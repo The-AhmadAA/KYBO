@@ -8,6 +8,8 @@ func _debug_display_message(message : String) -> void:
 
 func _on_HostButton_pressed() -> void:
 	Global.create_server()
+	get_node("Screen").visible = false
 
 func _on_JoinButton_pressed() -> void:
 	Global.join_server()
+	get_node("Screen").visible = false
