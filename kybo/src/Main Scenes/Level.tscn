@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Main Scenes/Level.gd" type="Script" id=1]
-[ext_resource path="res://Support Scences/Player3D.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Boxer/Boxer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Boxer/OpponentBoxer.gd" type="Script" id=3]
+[ext_resource path="res://GUI/ConnectScreen.tscn" type="PackedScene" id=4]
 
 [sub_resource type="BoxShape" id=1]
 margin = 0.001
@@ -15,8 +17,15 @@ script = ExtResource( 1 )
 transform = Transform( 6.819, 0, 0, 0, 0.066, 0, 0, 0, 8.174, 0, -1.445, -0.022 )
 shape = SubResource( 1 )
 
-[node name="Kinematic" parent="." instance=ExtResource( 2 )]
+[node name="RealsenseBoxer" parent="." instance=ExtResource( 2 )]
+
+[node name="OpponentBoxer" parent="." groups=["opponent"] instance=ExtResource( 2 )]
+script = ExtResource( 3 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.90912, 0.416535, 0, -0.416535, 0.90912, 0, 3.52406, 5.84508 )
 current = true
+
+[node name="GUI" parent="." instance=ExtResource( 4 )]
+
+[editable path="GUI"]
