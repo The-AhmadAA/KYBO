@@ -17,7 +17,7 @@ def main():
 
     atexit.register(lambda: cleanup(server, camera=camera))
 
-    #server.start()
+    server.start()
     print(f"Connected, starting to capture images...")
 
     while True:
