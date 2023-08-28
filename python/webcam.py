@@ -52,7 +52,7 @@ def main():
                     norm_x, norm_y = normalize_coordinates(x, y, width, height)
 
                     print(f"Hand_{hand_side},{round(norm_x, 8)},{-round(norm_y, 8)},state:{hand_state}!!\n")
-                    # server.send_data(f"Hand_{hand_side},{round(norm_x, 8)},{-round(norm_y, 8)},state:{hand_state}!!\n".encode())
+                    server.send_data(f"Hand_{hand_side},{round(norm_x, 8)},{-round(norm_y, 8)},state:{hand_state}!!\n".encode())
 
             # Processing face =
             face_results = processor.process_face(color_images_rgb_flipped)
@@ -65,7 +65,7 @@ def main():
                     
                     norm_x, norm_y = normalize_coordinates(center_x, center_y, width, height)
                     print(f"Face,{-round(norm_x, 8)},{-round(norm_y, 8)}!!\n")
-                    #server.send_data(f"Face,{-round(norm_x, 8)},{-round(norm_y, 8)}!!\n".encode())
+                    server.send_data(f"Face,{-round(norm_x, 8)},{-round(norm_y, 8)}!!\n".encode())
 
         except (ConnectionResetError, ConnectionRefusedError, ConnectionAbortedError):
             print("Connection lost... Restarting.")
