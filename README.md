@@ -1,10 +1,8 @@
 ## Zuck it, Musk!
 Welcome to "Zuck it, Musk!" - an immersive boxing simulation where you engage with tech giants, Elon Musk and Mark Zuckerberg, in a 3D virtual arena. With advanced depth tracking, this game transforms your real-world punches and dodges directly into the virtual space, allowing you to land blows on Musk or Zuck and artfully avoid their counterattacks by simply moving around. 
 
-<p float="left">
-  <img src="images/game.png" width="400" />
-  <img src="images/punching.png" width="400" /> 
-</p>
+<img style="display: block; margin-left: auto; margin-right: auto; width: 100%;" src="images/game.png" />
+<img style="display: block; margin-left: auto; margin-right: auto; width: 100%;" src="images/punching.png" />
 
 ### Introduction
 Created during a fierce 44-hour coding sprint for the UQ Computing Society Hackathon, this game offers a glimpse into what might have been. While Elon Musk and Mark Zuckerberg once entertained the idea of an IRL (in real life) fight, it never came to fruition. "Zuck it, Musk!" is our tribute to that unrealized event.
