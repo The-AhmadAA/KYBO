@@ -57,12 +57,6 @@ class MediaPipeProcessor:
         self.hands = mp.solutions.hands.Hands()
         self.face = mp.solutions.face_mesh.FaceMesh()
 
-    @staticmethod
-    def calculate_hand_centroid(handLms):
-        x = sum([lm.x for lm in handLms.landmark]) / len(handLms.landmark)
-        y = sum([lm.y for lm in handLms.landmark]) / len(handLms.landmark)
-        return x, y
-
     def process_hands(self, image):
         return self.hands.process(image)
 
