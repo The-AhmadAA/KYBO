@@ -18,6 +18,7 @@ config/icon="res://icon.png"
 
 Global="*res://Global.gd"
 Bgm="*res://Bgm.tscn"
+<<<<<<<HEADBgm="*res://Bgm.tscn"
 
 [debug]
 
