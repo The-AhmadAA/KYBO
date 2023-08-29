@@ -8,6 +8,10 @@ var ip : String = "10.89.140.109" # "127.0.0.1"
 var port : int = 1909
 var max_players : int = 2
 
+# =================== Single Player ===================
+func start_single_player() -> void:
+	get_tree().call_group("Main", "set_character", "Single")
+	get_tree().call_group("DEBUG", "_debug_display_message", "Set up single player, AKA, training mode.")
 
 # =================== Server Hosting ===================
 # Host the server
@@ -20,7 +24,6 @@ func create_server() -> void:
 	
 	# Messages
 	get_tree().call_group("DEBUG", "_debug_display_message", "Server started on " + ip + " on port " + str(port))
-	get_tree().call_group("connection_screen", "hide")
 	
 	# Claim Musk
 	get_tree().call_group("Main", "set_character", "Musk")

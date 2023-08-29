@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://GUI/ConnectScreen.gd" type="Script" id=1]
 [ext_resource path="res://Assests/file.png" type="Texture" id=2]
@@ -6,9 +6,14 @@
 [ext_resource path="res://Assests/a281b5adfea841a9afe1d2031380ba39.png" type="Texture" id=4]
 [ext_resource path="res://Assests/360_F_296299593_CjbC8w9t6WNBOUfvfVsf6DIfkmkIzku2.jpg" type="Texture" id=5]
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="StyleBoxEmpty" id=3]
 
-[node name="GUI" type="Control" groups=["DEBUG"]]
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.6, 0.6, 0.6, 0.345098 )
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[node name="ConnectScreen" type="Control" groups=["DEBUG"]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -21,7 +26,8 @@ margin_left = 56.0
 margin_top = -57.0
 margin_right = -56.0
 margin_bottom = -8.0
-custom_styles/read_only = SubResource( 1 )
+custom_styles/read_only = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
 readonly = true
 context_menu_enabled = false
 shortcut_keys_enabled = false
@@ -32,59 +38,75 @@ deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 wrap_enabled = true
 
-[node name="Screen" type="TextureRect" parent="."]
-margin_right = 1018.0
-margin_bottom = 592.0
+[node name="TitleScreen" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 5 )
 expand = true
 
-[node name="TextureRect" type="TextureRect" parent="Screen"]
+[node name="Zuck" type="TextureRect" parent="TitleScreen"]
 margin_top = 3.0
 margin_right = 282.0
 margin_bottom = 144.0
 texture = ExtResource( 2 )
 expand = true
 
-[node name="TextureRect2" type="TextureRect" parent="Screen/TextureRect"]
-margin_left = 44.0
-margin_top = 118.0
-margin_right = 994.0
-margin_bottom = 287.0
+[node name="Title" type="TextureRect" parent="TitleScreen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -475.0
+margin_top = -166.5
+margin_right = 475.0
+margin_bottom = 2.5
 texture = ExtResource( 3 )
 expand = true
 
-[node name="TextureRect3" type="TextureRect" parent="Screen/TextureRect/TextureRect2"]
-margin_left = 724.0
-margin_top = 159.0
-margin_right = 1000.0
-margin_bottom = 472.0
+[node name="Musk" type="TextureRect" parent="TitleScreen"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -286.0
+margin_top = -323.0
+margin_right = -10.0
+margin_bottom = -10.0
 texture = ExtResource( 4 )
 expand = true
 
-[node name="ConnectionButtons" type="ColorRect" parent="." groups=["connection_screen"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ConnectionButtons"]
+[node name="GameModeButtons" type="VBoxContainer" parent="TitleScreen"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -32.0
-margin_right = 52.0
-margin_bottom = 44.0
+margin_right = 61.0
+margin_bottom = 82.0
 
-[node name="HostButton" type="Button" parent="ConnectionButtons/VBoxContainer"]
-margin_right = 84.0
+[node name="SingleButton" type="Button" parent="TitleScreen/GameModeButtons"]
+margin_right = 93.0
 margin_bottom = 20.0
+text = "Single Player"
+
+[node name="HSeparator" type="HSeparator" parent="TitleScreen/GameModeButtons"]
+margin_top = 24.0
+margin_right = 93.0
+margin_bottom = 28.0
+custom_styles/separator = SubResource( 2 )
+
+[node name="HostButton" type="Button" parent="TitleScreen/GameModeButtons"]
+margin_top = 32.0
+margin_right = 93.0
+margin_bottom = 52.0
 text = "Host Game"
 
-[node name="JoinButton" type="Button" parent="ConnectionButtons/VBoxContainer"]
-margin_top = 24.0
-margin_right = 84.0
-margin_bottom = 44.0
+[node name="JoinButton" type="Button" parent="TitleScreen/GameModeButtons"]
+margin_top = 56.0
+margin_right = 93.0
+margin_bottom = 76.0
 text = "Join Game"
 
-[connection signal="pressed" from="ConnectionButtons/VBoxContainer/HostButton" to="." method="_on_HostButton_pressed"]
-[connection signal="pressed" from="ConnectionButtons/VBoxContainer/JoinButton" to="." method="_on_JoinButton_pressed"]
+[connection signal="pressed" from="TitleScreen/GameModeButtons/SingleButton" to="." method="_on_SingleButton_pressed"]
+[connection signal="pressed" from="TitleScreen/GameModeButtons/HostButton" to="." method="_on_HostButton_pressed"]
+[connection signal="pressed" from="TitleScreen/GameModeButtons/JoinButton" to="." method="_on_JoinButton_pressed"]
