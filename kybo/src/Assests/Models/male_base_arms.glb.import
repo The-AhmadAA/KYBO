@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/elon_musk_face_3d_-_your_personal_elon_head.glb-c71d09dc19830585de3c1b3daf755407.scn"
+path="res://.import/male_base_arms.glb-95ea95d2e21ee83862e83ce0cc69398d.scn"
 
 [deps]
 
-source_file="res://Assests/elon_musk_face_3d_-_your_personal_elon_head.glb"
-dest_files=[ "res://.import/elon_musk_face_3d_-_your_personal_elon_head.glb-c71d09dc19830585de3c1b3daf755407.scn" ]
+source_file="res://Assests/Models/male_base_arms.glb"
+dest_files=[ "res://.import/male_base_arms.glb-95ea95d2e21ee83862e83ce0cc69398d.scn" ]
 
 [params]
 

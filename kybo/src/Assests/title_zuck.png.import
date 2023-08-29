@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/New Project.png-59894a76290a5ecc51ab33483ae6fb3e.stex"
+path="res://.import/title_zuck.png-f9df33b73439c72d572503f360b09db2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assests/New Project.png"
-dest_files=[ "res://.import/New Project.png-59894a76290a5ecc51ab33483ae6fb3e.stex" ]
+source_file="res://Assests/title_zuck.png"
+dest_files=[ "res://.import/title_zuck.png-f9df33b73439c72d572503f360b09db2.stex" ]
 
 [params]
 

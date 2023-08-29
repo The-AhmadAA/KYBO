@@ -11,14 +11,17 @@ config_version=4
 [application]
 
 config/name="Kybo"
-run/main_scene="res://Main Scenes/Level.tscn"
+run/main_scene="res://MainScenes/Level.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Global="*res://Global.gd"
 Bgm="*res://Bgm.tscn"
-<<<<<<<HEADBgm="*res://Bgm.tscn"
+
+[debug]
+
+gdscript/warnings/return_value_discarded=false
 
 [gui]
 

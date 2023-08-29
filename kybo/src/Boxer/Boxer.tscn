@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Boxer/RealsenseBoxer.gd" type="Script" id=1]
-[ext_resource path="res://Assests/Fist.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://Assests/Models/Fist.obj" type="ArrayMesh" id=2]
 
 [sub_resource type="SphereMesh" id=4]
 

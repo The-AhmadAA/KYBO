@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/mark_zuckerberg_face.glb-c504ea88274af69cc86da32bd5f64dac.scn"
+path="res://.import/zuck_face.glb-744563b2ffc9fd32e33a626ed745d995.scn"
 
 [deps]
 
-source_file="res://Assests/mark_zuckerberg_face.glb"
-dest_files=[ "res://.import/mark_zuckerberg_face.glb-c504ea88274af69cc86da32bd5f64dac.scn" ]
+source_file="res://Assests/Models/zuck_face.glb"
+dest_files=[ "res://.import/zuck_face.glb-744563b2ffc9fd32e33a626ed745d995.scn" ]
 
 [params]
 

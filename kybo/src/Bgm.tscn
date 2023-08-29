@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Bgm.gd" type="Script" id=1]
 [ext_resource path="res://Audio/6-Crisis.mp3" type="AudioStream" id=2]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer"]
 stream = ExtResource( 2 )
 volume_db = -10.496
 autoplay = true
-script = ExtResource( 1 )

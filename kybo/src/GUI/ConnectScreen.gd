@@ -1,19 +1,22 @@
 extends Control
 
-onready var DEBUG_LABEL : TextEdit = $DEBUG
-
-func _debug_display_message(message : String) -> void:
-	DEBUG_LABEL.text += message + "\n"
-	print(message)
-
-func _on_SingleButton_pressed() -> void:
+# =================== Play ===================
+func _on_single_player_pressed() -> void:
+	# get_tree().change_scene("res://MainScenes/Level.tscn")
 	Global.start_single_player()
-	$TitleScreen.hide()
+	hide()
 
-func _on_HostButton_pressed() -> void:
+func _on_host_pressed() -> void:
 	Global.create_server()
-	$TitleScreen.hide()
+	hide()
 
-func _on_JoinButton_pressed() -> void:
+func _on_join_pressed() -> void:
 	Global.join_server()
-	$TitleScreen.hide()
+	hide()
+
+# =================== Misc ===================
+func _on_options_pressed() -> void:
+	print("Jokes on you, there are no options! (Yet)")
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()

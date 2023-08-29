@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/boxing_ring.jpg-c8fdff46e8e0ce372073e9e657930dd5.s3tc.stex"
-path.etc2="res://.import/boxing_ring.jpg-c8fdff46e8e0ce372073e9e657930dd5.etc2.stex"
+path.s3tc="res://.import/boxing_ring.jpg-4c8c4529e602a08cd711111b50dde043.s3tc.stex"
+path.etc2="res://.import/boxing_ring.jpg-4c8c4529e602a08cd711111b50dde043.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assests/boxing_ring.jpg"
-dest_files=[ "res://.import/boxing_ring.jpg-c8fdff46e8e0ce372073e9e657930dd5.s3tc.stex", "res://.import/boxing_ring.jpg-c8fdff46e8e0ce372073e9e657930dd5.etc2.stex" ]
+source_file="res://Assests/Models/boxing_ring.jpg"
+dest_files=[ "res://.import/boxing_ring.jpg-4c8c4529e602a08cd711111b50dde043.s3tc.stex", "res://.import/boxing_ring.jpg-4c8c4529e602a08cd711111b50dde043.etc2.stex" ]
 
 [params]
 

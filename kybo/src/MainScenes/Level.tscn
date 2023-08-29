@@ -1,0 +1,187 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Assests/crowd_bg.jpg" type="Texture" id=1]
+[ext_resource path="res://Assests/Models/boxing_ring.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://GUI/GUI.gd" type="Script" id=3]
+[ext_resource path="res://Boxer/BoxerMusk.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GUI/ConnectScreen.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Boxer/BoxerZucc.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assests/Models/boxing_ring.jpg" type="Texture" id=7]
+
+[sub_resource type="GDScript" id=8]
+script/source = "extends Spatial
+
+func set_character(character : String) -> void:
+	# Add script to characters
+	# Add group \"opponent\" to oppenent
+	match character:
+		# Remove Zuck and replace with dummy for single player?
+		\"Single\", \"Musk\":
+			$Musk.set_script(load(\"res://Boxer/RealsenseBoxer.gd\"))
+			$Zucc.set_script(load(\"res://Boxer/OpponentBoxer.gd\"))
+			$Musk.add_to_group(\"player\")
+			$Zucc.add_to_group(\"opponent\")
+			$Musk/Face/Camera.current = true
+		\"Zucc\":
+			$Zucc.set_script(load(\"res://Boxer/RealsenseBoxer.gd\"))
+			$Musk.set_script(load(\"res://Boxer/OpponentBoxer.gd\"))
+			$Musk.add_to_group(\"opponent\")
+			$Zucc/Face/Camera.current = true
+		_:
+			print(\"Incorrect character\")
+"
+
+[sub_resource type="PanoramaSky" id=5]
+panorama = ExtResource( 1 )
+
+[sub_resource type="Environment" id=3]
+background_mode = 2
+background_sky = SubResource( 5 )
+
+[sub_resource type="SpatialMaterial" id=11]
+albedo_texture = ExtResource( 7 )
+
+[sub_resource type="GDScript" id=10]
+resource_name = "DEBUG"
+script/source = "extends Label
+
+func _debug_message(message : String) -> void:
+	if text.count(\"\\n\") == 3:
+		# Clear the first line of debug
+		var first_newline : int = text.find(\"\\n\")
+		text = text.substr(first_newline + 1)
+	
+	text += message + \"\\n\"
+	print(message)
+"
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[node name="Spatial" type="Spatial" groups=["Main"]]
+script = SubResource( 8 )
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="Environment"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 6.60789, 0 )
+light_energy = 0.56
+
+[node name="OmniLight" type="OmniLight" parent="Environment"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.71788, 0 )
+omni_range = 10.0
+
+[node name="OmniLight2" type="OmniLight" parent="Environment"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.66072, 1.71788, 0 )
+
+[node name="OmniLight3" type="OmniLight" parent="Environment"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.86314, 1.71788, 0 )
+
+[node name="BoxingRing" type="MeshInstance" parent="."]
+transform = Transform( -1.09278e-09, 0.025, 1.09278e-09, 0, -1.09278e-09, 0.025, 0.025, 1.09278e-09, 4.77671e-17, -1.12055, -4.90229, -1.17658 )
+mesh = ExtResource( 2 )
+material/0 = SubResource( 11 )
+
+[node name="Musk" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Zucc" parent="." instance=ExtResource( 6 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, -2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.90912, 0.416535, 0, -0.416535, 0.90912, 0, 3.52406, 5.84508 )
+
+[node name="GUI" type="Control" parent="." groups=["GUI"]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 3 )
+
+[node name="DEBUG" type="Label" parent="GUI" groups=["DEBUG"]]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 82.0
+margin_top = -60.0
+margin_right = -82.0
+margin_bottom = -10.0
+text = "a
+aa
+aaa"
+align = 1
+autowrap = true
+clip_text = true
+script = SubResource( 10 )
+
+[node name="Health" type="ColorRect" parent="GUI"]
+anchor_right = 1.0
+margin_bottom = 32.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Bars" type="HBoxContainer" parent="GUI/Health"]
+anchor_right = 1.0
+margin_left = 24.0
+margin_top = 10.0
+margin_right = -24.0
+margin_bottom = 36.0
+size_flags_horizontal = 3
+
+[node name="Player1" type="ProgressBar" parent="GUI/Health/Bars"]
+margin_right = 469.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+
+[node name="Separator" type="VSeparator" parent="GUI/Health/Bars"]
+margin_left = 473.0
+margin_right = 503.0
+margin_bottom = 26.0
+custom_constants/separation = 30
+custom_styles/separator = SubResource( 9 )
+
+[node name="Player2" type="ProgressBar" parent="GUI/Health/Bars"]
+margin_left = 507.0
+margin_right = 976.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+
+[node name="Reconnect" type="ColorRect" parent="GUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.729412 )
+
+[node name="VBox" type="VBoxContainer" parent="GUI/Reconnect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -98.0
+margin_top = -30.5
+margin_right = 98.0
+margin_bottom = 30.5
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="GUI/Reconnect/VBox"]
+margin_right = 196.0
+margin_bottom = 31.0
+text = "Reconnection to the webcam has failed..."
+align = 1
+autowrap = true
+
+[node name="Connect" type="Button" parent="GUI/Reconnect/VBox"]
+margin_top = 41.0
+margin_right = 196.0
+margin_bottom = 61.0
+text = "Reconnect"
+
+[node name="ConnectScreen" parent="GUI" instance=ExtResource( 5 )]
+
+[connection signal="pressed" from="GUI/Reconnect/VBox/Connect" to="GUI" method="_on_connect_pressed"]

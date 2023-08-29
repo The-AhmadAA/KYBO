@@ -43,7 +43,6 @@ func _physics_process(delta):
 	# vertical velocity
 	velocity.y -= fall_acceleration * delta
 	
-	
 	# Jumping
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y += jump_impulse

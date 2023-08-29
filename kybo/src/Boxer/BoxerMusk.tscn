@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Assests/Fist.obj" type="ArrayMesh" id=2]
-[ext_resource path="res://Assests/elon_musk_face_3d_-_your_personal_elon_head.glb" type="PackedScene" id=3]
+[ext_resource path="res://Assests/Models/Fist.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://Assests/Models/musk_face.glb" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.5

@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/male_base_mesh_arms.glb-df2a01bef2cf9a4657cc2c56bad05941.scn"
+path="res://.import/musk_face.glb-4f71daadf5ffd05cab46d8a6c83f1b72.scn"
 
 [deps]
 
-source_file="res://male_base_mesh_arms.glb"
-dest_files=[ "res://.import/male_base_mesh_arms.glb-df2a01bef2cf9a4657cc2c56bad05941.scn" ]
+source_file="res://Assests/Models/musk_face.glb"
+dest_files=[ "res://.import/musk_face.glb-4f71daadf5ffd05cab46d8a6c83f1b72.scn" ]
 
 [params]
 

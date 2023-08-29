@@ -38,7 +38,7 @@ func _init() -> void:
 	
 	set_process(true)
 
-func _process(delta):
+func _process(_delta):
 	# Check that there is an opponent to move
 	if Global.opponent != null:
 		update_hands_position()

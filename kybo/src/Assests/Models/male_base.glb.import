@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/male_base_mesh.glb-40510789055c805ff61450a74f37cc34.scn"
+path="res://.import/male_base.glb-ee7ed6e2c591e2a09cc725461aabdd88.scn"
 
 [deps]
 
-source_file="res://male_base_mesh.glb"
-dest_files=[ "res://.import/male_base_mesh.glb-40510789055c805ff61450a74f37cc34.scn" ]
+source_file="res://Assests/Models/male_base.glb"
+dest_files=[ "res://.import/male_base.glb-ee7ed6e2c591e2a09cc725461aabdd88.scn" ]
 
 [params]
 

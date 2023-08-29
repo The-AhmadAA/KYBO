@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/360_F_296299593_CjbC8w9t6WNBOUfvfVsf6DIfkmkIzku2.jpg-a5c26dd83065ef36c0ad331145c3b9ec.stex"
+path="res://.import/title_musk.png-2656fcab0f90cf90b92da43ed39185d4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assests/360_F_296299593_CjbC8w9t6WNBOUfvfVsf6DIfkmkIzku2.jpg"
-dest_files=[ "res://.import/360_F_296299593_CjbC8w9t6WNBOUfvfVsf6DIfkmkIzku2.jpg-a5c26dd83065ef36c0ad331145c3b9ec.stex" ]
+source_file="res://Assests/title_musk.png"
+dest_files=[ "res://.import/title_musk.png-2656fcab0f90cf90b92da43ed39185d4.stex" ]
 
 [params]
 

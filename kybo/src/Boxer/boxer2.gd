@@ -52,9 +52,9 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector3.UP)
 
 func lose_health():
-	emit_signal("hit2")
+#	emit_signal("hit2")
 	boxer_health -= 10
-	$AnimationPlayer.play("hit2")
+	$AnimationPlayer.play("hit")
 	
 	if boxer_health <= 0:
 		die()

@@ -11,7 +11,7 @@ var max_players : int = 2
 # =================== Single Player ===================
 func start_single_player() -> void:
 	get_tree().call_group("Main", "set_character", "Single")
-	get_tree().call_group("DEBUG", "_debug_display_message", "Set up single player, AKA, training mode.")
+	get_tree().call_group("DEBUG", "_debug_message", "Set up single player, AKA, training mode.")
 
 # =================== Server Hosting ===================
 # Host the server
@@ -23,7 +23,7 @@ func create_server() -> void:
 	get_tree().set_network_peer(network)
 	
 	# Messages
-	get_tree().call_group("DEBUG", "_debug_display_message", "Server started on " + ip + " on port " + str(port))
+	get_tree().call_group("DEBUG", "_debug_message", "Server started on " + ip + " on port " + str(port))
 	
 	# Claim Musk
 	get_tree().call_group("Main", "set_character", "Musk")
@@ -34,12 +34,12 @@ func create_server() -> void:
 
 func _PeerConnected(player_id):
 	Global.opponent = player_id
-	get_tree().call_group("DEBUG", "_debug_display_message", "Challenger approaches!")
+	get_tree().call_group("DEBUG", "_debug_message", "Challenger approaches!")
 	get_tree().call_group("connection_screen", "hide")
 
 func _PeerDisconnected(_player_id):
 	Global.opponent = null
-	get_tree().call_group("DEBUG", "_debug_display_message", "Opponent has fled!")
+	get_tree().call_group("DEBUG", "_debug_message", "Opponent has fled!")
 
 
 # =================== Joining Client ===================
@@ -56,20 +56,18 @@ func join_server() -> void:
 
 func _OnConnectionFailed():
 	Global.opponent = null
-	get_tree().call_group("DEBUG", "_debug_display_message", "Join failed")
+	get_tree().call_group("DEBUG", "_debug_message", "Join failed")
 	get_tree().call_group("connection_screen", "show")
 
 func _OnConnectionSuccessful():
 	Global.opponent = 1
-	get_tree().call_group("DEBUG", "_debug_display_message", "Join successful")
+	get_tree().call_group("DEBUG", "_debug_message", "Join successful")
 	get_tree().call_group("connection_screen", "hide")
 
 
 # =================== State Communication ===================
 
 # Need to:
-# Update the opponent to host position
-# Update the host to the opponent position
 # Communicate collision (from host side??)
 
 func SendPlayerState(player_state):

@@ -1,12 +1,12 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://Main.gd" type="Script" id=1]
-[ext_resource path="res://boxer1.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Main Scenes/Level.tscn" type="PackedScene" id=3]
-[ext_resource path="res://ScoreLabel.gd" type="Script" id=4]
+[ext_resource path="res://GUI/P1Health.gd" type="Script" id=1]
+[ext_resource path="res://MainScenes/Level.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Boxer/boxer1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Boxer/boxer2.gd" type="Script" id=4]
 [ext_resource path="res://Audio/boxing-punch.mp3" type="AudioStream" id=5]
-[ext_resource path="res://boxer2.gd" type="Script" id=6]
-[ext_resource path="res://P1Health.gd" type="Script" id=7]
+[ext_resource path="res://MainScenes/Main.gd" type="Script" id=6]
+[ext_resource path="res://GUI/ScoreLabel.gd" type="Script" id=7]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 30, 2, 30 )
@@ -52,7 +52,7 @@ func _on_boxer1_hit():
 "
 
 [node name="Main" type="Node"]
-script = ExtResource( 1 )
+script = ExtResource( 6 )
 
 [node name="Ground" type="StaticBody" parent="."]
 
@@ -102,14 +102,14 @@ transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 
 [node name="Camera" type="Camera" parent="Position3D"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.2833, 41.9905 )
 
-[node name="boxer1" parent="." instance=ExtResource( 2 )]
+[node name="boxer1" parent="." instance=ExtResource( 3 )]
 transform = Transform( -4.96705, 0, -0.57304, 0, 5, 0, 0.57304, 0, -4.96705, 0.0692595, -0.814078, 1.65164 )
 
-[node name="boxer2" parent="." instance=ExtResource( 2 )]
+[node name="boxer2" parent="." instance=ExtResource( 3 )]
 transform = Transform( 5, 0, 8.7423e-07, 0, 5, 0, -8.7423e-07, 0, 5, 1.13506, -1, 13.9892 )
-script = ExtResource( 6 )
+script = ExtResource( 4 )
 
-[node name="Spatial" parent="." instance=ExtResource( 3 )]
+[node name="Spatial" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08364, 8.3709, 7.7915 )
 
 [node name="UserInterface" type="Control" parent="."]
@@ -130,7 +130,7 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Score: 0 
 
 Keep Your Block On"
-script = ExtResource( 4 )
+script = ExtResource( 7 )
 
 [node name="P1Health" type="Label" parent="UserInterface"]
 anchor_left = 0.5
@@ -141,7 +141,7 @@ margin_bottom = 14.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "HP : 100"
 align = 1
-script = ExtResource( 7 )
+script = ExtResource( 1 )
 
 [node name="Retry" type="ColorRect" parent="UserInterface"]
 anchor_left = -0.00976563
