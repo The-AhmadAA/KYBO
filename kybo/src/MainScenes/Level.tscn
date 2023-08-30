@@ -7,29 +7,7 @@
 [ext_resource path="res://GUI/ConnectScreen.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Boxer/BoxerZucc.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assests/Models/boxing_ring.jpg" type="Texture" id=7]
-
-[sub_resource type="GDScript" id=8]
-script/source = "extends Spatial
-
-func set_character(character : String) -> void:
-	# Add script to characters
-	# Add group \"opponent\" to oppenent
-	match character:
-		# Remove Zuck and replace with dummy for single player?
-		\"Single\", \"Musk\":
-			$Musk.set_script(load(\"res://Boxer/RealsenseBoxer.gd\"))
-			$Zucc.set_script(load(\"res://Boxer/OpponentBoxer.gd\"))
-			$Musk.add_to_group(\"player\")
-			$Zucc.add_to_group(\"opponent\")
-			$Musk/Face/Camera.current = true
-		\"Zucc\":
-			$Zucc.set_script(load(\"res://Boxer/RealsenseBoxer.gd\"))
-			$Musk.set_script(load(\"res://Boxer/OpponentBoxer.gd\"))
-			$Musk.add_to_group(\"opponent\")
-			$Zucc/Face/Camera.current = true
-		_:
-			print(\"Incorrect character\")
-"
+[ext_resource path="res://MainScenes/Level.gd" type="Script" id=8]
 
 [sub_resource type="PanoramaSky" id=5]
 panorama = ExtResource( 1 )
@@ -57,8 +35,8 @@ func _debug_message(message : String) -> void:
 
 [sub_resource type="StyleBoxEmpty" id=9]
 
-[node name="Spatial" type="Spatial" groups=["Main"]]
-script = SubResource( 8 )
+[node name="Level" type="Spatial" groups=["Main"]]
+script = ExtResource( 8 )
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource( 3 )
