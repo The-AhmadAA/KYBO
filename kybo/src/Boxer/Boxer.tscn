@@ -9,19 +9,19 @@ albedo_color = Color( 0.952941, 0.803922, 0.803922, 1 )
 [sub_resource type="SphereMesh" id=4]
 material = SubResource( 7 )
 
+[sub_resource type="SpatialMaterial" id=16]
+albedo_color = Color( 0.34902, 0.4, 0.6, 1 )
+
+[sub_resource type="CapsuleMesh" id=12]
+material = SubResource( 16 )
+radius = 0.5
+
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.5
 
 [sub_resource type="Skin" id=13]
 
 [sub_resource type="CapsuleShape" id=15]
-radius = 0.5
-
-[sub_resource type="SpatialMaterial" id=16]
-albedo_color = Color( 0.34902, 0.4, 0.6, 1 )
-
-[sub_resource type="CapsuleMesh" id=12]
-material = SubResource( 16 )
 radius = 0.5
 
 [node name="Kinematic" type="KinematicBody"]
@@ -37,6 +37,11 @@ transform = Transform( 2, 0, 0, 0, 1.8037, 0.864106, 0, -0.864106, 1.8037, 0, 5.
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="Body" type="MeshInstance" parent="Face"]
+transform = Transform( 2, 0, 0, 0, -8.74228e-08, 2, 0, -2, -8.74228e-08, 0, -2.742, 0.68 )
+mesh = SubResource( 12 )
+skeleton = NodePath("../..")
 
 [node name="Hand_Left" type="KinematicBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
@@ -79,7 +84,3 @@ shape = SubResource( 15 )
 __meta__ = {
 "_editor_description_": ""
 }
-
-[node name="Mesh" type="MeshInstance" parent="CollisionShape"]
-mesh = SubResource( 12 )
-skeleton = NodePath("../..")

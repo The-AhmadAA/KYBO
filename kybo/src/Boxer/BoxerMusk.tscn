@@ -3,6 +3,13 @@
 [ext_resource path="res://Assests/Models/Fist.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://Assests/Models/musk_face.glb" type="PackedScene" id=3]
 
+[sub_resource type="SpatialMaterial" id=16]
+albedo_color = Color( 0.34902, 0.4, 0.6, 1 )
+
+[sub_resource type="CapsuleMesh" id=12]
+material = SubResource( 16 )
+radius = 0.5
+
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.5
 
@@ -12,13 +19,6 @@ radius = 0.5
 albedo_color = Color( 0.952941, 0.803922, 0.803922, 1 )
 
 [sub_resource type="CapsuleShape" id=15]
-radius = 0.5
-
-[sub_resource type="SpatialMaterial" id=16]
-albedo_color = Color( 0.34902, 0.4, 0.6, 1 )
-
-[sub_resource type="CapsuleMesh" id=12]
-material = SubResource( 16 )
 radius = 0.5
 
 [node name="Musk" type="KinematicBody"]
@@ -38,6 +38,14 @@ __meta__ = {
 
 [node name="elon_musk_face_3d_-_your_personal_elon_head" parent="Face" instance=ExtResource( 3 )]
 transform = Transform( -0.025, 0, -3.7749e-09, 0, 0.025, 0, 3.7749e-09, 0, -0.025, -2.22773, 2.03844, 1.07193 )
+
+[node name="Body" type="MeshInstance" parent="Face"]
+transform = Transform( 2, 0, 0, 0, -8.74228e-08, 2, 0, -2, -8.74228e-08, 0, -2.742, 0.68 )
+mesh = SubResource( 12 )
+skeleton = NodePath("../..")
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="Hand_Left" type="KinematicBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
@@ -71,13 +79,6 @@ __meta__ = {
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.34 )
 shape = SubResource( 15 )
-__meta__ = {
-"_editor_description_": ""
-}
-
-[node name="MeshInstance" type="MeshInstance" parent="CollisionShape"]
-mesh = SubResource( 12 )
-skeleton = NodePath("../..")
 __meta__ = {
 "_editor_description_": ""
 }
