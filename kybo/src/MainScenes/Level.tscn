@@ -19,6 +19,8 @@ background_sky = SubResource( 5 )
 [sub_resource type="SpatialMaterial" id=11]
 albedo_texture = ExtResource( 7 )
 
+[sub_resource type="StyleBoxEmpty" id=9]
+
 [sub_resource type="GDScript" id=10]
 resource_name = "DEBUG"
 script/source = "extends Label
@@ -32,8 +34,6 @@ func _debug_message(message : String) -> void:
 	text += message + \"\\n\"
 	print(message)
 "
-
-[sub_resource type="StyleBoxEmpty" id=9]
 
 [node name="Level" type="Spatial" groups=["Main"]]
 script = ExtResource( 8 )
@@ -81,22 +81,6 @@ anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 3 )
 
-[node name="DEBUG" type="Label" parent="GUI" groups=["DEBUG"]]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 82.0
-margin_top = -60.0
-margin_right = -82.0
-margin_bottom = -10.0
-text = "a
-aa
-aaa"
-align = 1
-autowrap = true
-clip_text = true
-script = SubResource( 10 )
-
 [node name="Health" type="ColorRect" parent="GUI"]
 anchor_right = 1.0
 margin_bottom = 32.0
@@ -114,6 +98,7 @@ size_flags_horizontal = 3
 margin_right = 469.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
+value = 100.0
 
 [node name="Separator" type="VSeparator" parent="GUI/Health/Bars"]
 margin_left = 473.0
@@ -127,6 +112,23 @@ margin_left = 507.0
 margin_right = 976.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
+value = 100.0
+
+[node name="DEBUG" type="Label" parent="GUI/Health" groups=["DEBUG"]]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 82.0
+margin_top = 508.0
+margin_right = -82.0
+margin_bottom = 558.0
+text = "a
+aa
+aaa"
+align = 1
+autowrap = true
+clip_text = true
+script = SubResource( 10 )
 
 [node name="Reconnect" type="ColorRect" parent="GUI"]
 anchor_right = 1.0
