@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assests/Models/Fist.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://Assests/Models/musk_face.glb" type="PackedScene" id=3]
@@ -6,15 +6,20 @@
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.5
 
-[sub_resource type="Skin" id=3]
+[sub_resource type="Skin" id=13]
 
 [sub_resource type="SpatialMaterial" id=7]
 albedo_color = Color( 0.952941, 0.803922, 0.803922, 1 )
 
-[sub_resource type="SpatialMaterial" id=8]
-albedo_color = Color( 0.952941, 0.803922, 0.803922, 1 )
+[sub_resource type="CapsuleShape" id=15]
+radius = 0.5
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="SpatialMaterial" id=16]
+albedo_color = Color( 0.34902, 0.4, 0.6, 1 )
+
+[sub_resource type="CapsuleMesh" id=12]
+material = SubResource( 16 )
+radius = 0.5
 
 [node name="Musk" type="KinematicBody"]
 
@@ -40,26 +45,39 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
 [node name="CollisionShape" type="CollisionShape" parent="Hand_Left"]
 shape = SubResource( 6 )
 
-[node name="Mesh2" type="MeshInstance" parent="Hand_Left"]
+[node name="Mesh" type="MeshInstance" parent="Hand_Left"]
 transform = Transform( 1.48682e-09, -0.0227919, -0.131609, -2.16744e-10, -0.156347, 0.0191856, 0.126, 0, 1.58601e-09, -0.176114, -1.2802, 0.243 )
 mesh = ExtResource( 2 )
-skin = SubResource( 3 )
+skin = SubResource( 13 )
 skeleton = NodePath("")
 material/0 = SubResource( 7 )
 
 [node name="Hand_Right" type="KinematicBody" parent="."]
-transform = Transform( -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 1, 0, 0 )
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Hand_Right"]
 shape = SubResource( 6 )
 
 [node name="Mesh" type="MeshInstance" parent="Hand_Right"]
-transform = Transform( 0.000239754, -0.00716104, -0.132863, 0.00527968, -0.157698, 0.00603328, 0.125889, 0.00662738, 5.80763e-09, 1.19209e-07, -1.20092, 0.243 )
+transform = Transform( -9.54433e-09, -0.0227919, -0.131609, -2.16744e-10, -0.156347, 0.0191856, 0.126, -1.9954e-09, -9.9362e-09, -0.176114, -1.2802, 0.243 )
 mesh = ExtResource( 2 )
-skin = SubResource( 3 )
+skin = SubResource( 13 )
 skeleton = NodePath("")
-material/0 = SubResource( 8 )
+material/0 = SubResource( 7 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 0.418, 0, 0, 0, 1.016, 0, 0, 0, 0.509, 0, 0, 0 )
-shape = SubResource( 5 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.34 )
+shape = SubResource( 15 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="MeshInstance" type="MeshInstance" parent="CollisionShape"]
+mesh = SubResource( 12 )
+skeleton = NodePath("../..")
+__meta__ = {
+"_editor_description_": ""
+}
