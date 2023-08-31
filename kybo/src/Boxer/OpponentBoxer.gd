@@ -1,38 +1,17 @@
-extends KinematicBody
-
-const LERP_SPEED : float = 0.2
-const HISTORY_SIZE : int = 5
-const MAX_HAND_DISTANCE_FROM_FACE : int = 10
-const HAND_LEFT_BASE_POSITION : Vector3= Vector3(-1.0, 0, 0) # adjust to your desired base position
-const HAND_RIGHT_BASE_POSITION : Vector3 = Vector3(1.0, 0, 0) # adjust to your desired base position
-
-var position_history = {
-	"Face": [],
-	"Hand_Left": [],
-	"Hand_Right": []
-}
-
-var last_update = {
-	"Face" : 0,
-	"Hand_Left" : 0,
-	"Hand_Right" : 0
-}
-
-var last_recieved = {
-	"Face" : 0,
-	"Hand_Left" : 0,
-	"Hand_Right" : 0
-}
+extends Boxer
 
 var prev_time_recieved = 0
 
-var head : MeshInstance
-var hand_right : KinematicBody
-var hand_left : KinematicBody
+var last_recieved : Dictionary = {
+	"Face" : 0,
+	"Hand_Left" : 0,
+	"Hand_Right" : 0
+}
 
 
-func _init() -> void:
-	head = $Face
+#func _init() -> void:
+func _ready() -> void:
+	head = $Head
 	hand_right = $Hand_Right
 	hand_left = $Hand_Left
 	

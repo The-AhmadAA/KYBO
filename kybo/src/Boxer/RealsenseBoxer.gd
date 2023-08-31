@@ -1,15 +1,9 @@
-extends KinematicBody
+extends Boxer
 
 const LOCALHOST : String = "127.0.0.1"
 const PORT : int = 65445
 
 const MAX_RETRY : int = 5
-const HISTORY_SIZE : int = 5
-const LERP_SPEED : float = 0.2
-
-const MAX_HAND_DISTANCE_FROM_FACE : int = 10
-const HAND_LEFT_BASE_POSITION : Vector3= Vector3(-1.0, 0, 0) # adjust to your desired base position
-const HAND_RIGHT_BASE_POSITION : Vector3 = Vector3(1.0, 0, 0) # adjust to your desired base position
 
 var client : StreamPeerTCP = StreamPeerTCP.new()
 var buffer : String = ""
@@ -17,22 +11,6 @@ var current_retry : int = 0
 
 var last_received_left_hand_position : Vector3 = Vector3(0,0,0) # Store the last received left hand position
 var last_received_right_hand_position : Vector3 = Vector3(0,0,0) # Store the last received right hand position
-
-var position_history = {
-	"Face": [],
-	"Hand_Left": [],
-	"Hand_Right": []
-}
-
-var last_update = {
-	"Face" : 0,
-	"Hand_Left" : 0,
-	"Hand_Right" : 0
-}
-
-var head : MeshInstance
-var hand_right : KinematicBody
-var hand_left : KinematicBody
 
 
 func normalize_position(pos: Vector3) -> Vector3:
@@ -44,7 +22,8 @@ func array_to_string(arr: Array) -> String:
 		s += char(i)
 	return s
 
-func _init() -> void:
+#func _init() -> void:
+func _ready() -> void:
 	client.connect_to_host(LOCALHOST, PORT)
 	
 	if client.get_status() == client.STATUS_ERROR:
@@ -56,7 +35,7 @@ func _init() -> void:
 	last_update["Hand_Left"] = OS.get_system_time_msecs()
 	last_update["Hand_Right"] = OS.get_system_time_msecs()
 	
-	head = $Face
+	head = $Head
 	hand_right = $Hand_Right
 	hand_left = $Hand_Left
 	
@@ -156,4 +135,3 @@ func _process(_delta):
 					last_update["Hand_Right"] = OS.get_system_time_msecs()
 			
 			_update_hands_position($Face.translation)
-

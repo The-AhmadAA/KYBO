@@ -4,7 +4,6 @@
 [ext_resource path="res://Assests/Models/zuck_face.glb" type="PackedScene" id=3]
 
 [node name="Boxer" instance=ExtResource( 1 )]
-script = null
 
 [node name="Face" parent="Head" index="1"]
 mesh = null
