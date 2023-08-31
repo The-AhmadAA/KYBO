@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Boxer/Boxer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assests/Models/zuck_face.glb" type="PackedScene" id=3]
+
+[node name="Boxer" instance=ExtResource( 1 )]
+script = null
+
+[node name="Face" parent="Head" index="1"]
+mesh = null
+
+[node name="zuck_face" parent="Head" index="4" instance=ExtResource( 3 )]
+transform = Transform( -0.025, 0, -3.7749e-09, 0, 0.025, 0, 3.7749e-09, 0, -0.025, 2.22713, -2.49541, 1.07193 )
+__meta__ = {
+"_editor_description_": ""
+}

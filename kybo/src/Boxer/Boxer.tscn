@@ -1,13 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://Boxer/RealsenseBoxer.gd" type="Script" id=1]
 [ext_resource path="res://Assests/Models/Fist.obj" type="ArrayMesh" id=2]
+
+[sub_resource type="CapsuleMesh" id=20]
+radius = 0.8
+mid_height = 0.337
 
 [sub_resource type="SpatialMaterial" id=7]
 albedo_color = Color( 0.952941, 0.803922, 0.803922, 1 )
-
-[sub_resource type="SphereMesh" id=4]
-material = SubResource( 7 )
 
 [sub_resource type="SpatialMaterial" id=16]
 albedo_color = Color( 0.34902, 0.4, 0.6, 1 )
@@ -16,35 +16,68 @@ albedo_color = Color( 0.34902, 0.4, 0.6, 1 )
 material = SubResource( 16 )
 radius = 0.5
 
+[sub_resource type="CapsuleShape" id=19]
+radius = 1.1
+height = 0.5
+
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.5
 
 [sub_resource type="Skin" id=13]
 
+[sub_resource type="CapsuleShape" id=17]
+radius = 0.55
+height = 0.5
+
+[sub_resource type="CapsuleShape" id=21]
+
 [sub_resource type="CapsuleShape" id=15]
 radius = 0.5
 
-[node name="Kinematic" type="KinematicBody"]
-script = ExtResource( 1 )
+[sub_resource type="Animation" id=22]
+resource_name = "hit"
 
-[node name="Face" type="MeshInstance" parent="."]
+[node name="Boxer" type="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+collision_layer = 0
+collision_mask = 0
+
+[node name="Head" type="KinematicBody" parent="."]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.371, 0 )
-mesh = SubResource( 4 )
-skeleton = NodePath("")
+collision_layer = 0
+collision_mask = 0
 
-[node name="Camera" type="Camera" parent="Face"]
-transform = Transform( 2, 0, 0, 0, 1.8037, 0.864106, 0, -0.864106, 1.8037, 0, 5.607, 5.86646 )
+[node name="Camera" type="Camera" parent="Head"]
+transform = Transform( 2, 0, 0, 0, 1.84101, 0.781462, 0, -0.781462, 1.84101, 0, 5, 6.51 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Body" type="MeshInstance" parent="Face"]
+[node name="Face" type="MeshInstance" parent="Head"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.261765 )
+mesh = SubResource( 20 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 7 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Body" type="MeshInstance" parent="Head"]
 transform = Transform( 2, 0, 0, 0, -8.74228e-08, 2, 0, -2, -8.74228e-08, 0, -2.742, 0.68 )
 mesh = SubResource( 12 )
 skeleton = NodePath("../..")
 
+[node name="Collision" type="CollisionShape" parent="Head"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.261765 )
+shape = SubResource( 19 )
+__meta__ = {
+"_editor_description_": ""
+}
+
 [node name="Hand_Left" type="KinematicBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
+collision_layer = 0
+collision_mask = 0
 
 [node name="CollisionShape" type="CollisionShape" parent="Hand_Left"]
 shape = SubResource( 6 )
@@ -61,6 +94,8 @@ __meta__ = {
 
 [node name="Hand_Right" type="KinematicBody" parent="."]
 transform = Transform( -1, 0, 0, 0, 1, -8.74228e-08, 0, 8.74228e-08, 1, 1, 0, 0 )
+collision_layer = 0
+collision_mask = 0
 __meta__ = {
 "_editor_description_": ""
 }
@@ -78,9 +113,32 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="HitBox" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="Head" type="CollisionShape" parent="HitBox"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.46956, 0.0713092 )
+shape = SubResource( 17 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Body" type="CollisionShape" parent="HitBox"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.34 )
+shape = SubResource( 21 )
+__meta__ = {
+"_editor_description_": ""
+}
+
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.34 )
 shape = SubResource( 15 )
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/hit = SubResource( 22 )
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hitbox_entered"]
