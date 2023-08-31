@@ -22,7 +22,6 @@ func array_to_string(arr: Array) -> String:
 		s += char(i)
 	return s
 
-#func _init() -> void:
 func _ready() -> void:
 	client.connect_to_host(LOCALHOST, PORT)
 	

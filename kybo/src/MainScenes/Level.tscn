@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assests/crowd_bg.jpg" type="Texture" id=1]
 [ext_resource path="res://Assests/Models/boxing_ring.obj" type="ArrayMesh" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://Boxer/BoxerZuck.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assests/Models/boxing_ring.jpg" type="Texture" id=7]
 [ext_resource path="res://MainScenes/Level.gd" type="Script" id=8]
-[ext_resource path="res://Boxer/RealsenseBoxer.gd" type="Script" id=9]
 
 [sub_resource type="PanoramaSky" id=5]
 panorama = ExtResource( 1 )
@@ -63,12 +62,11 @@ material/0 = SubResource( 11 )
 
 [node name="Musk" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
-script = ExtResource( 9 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Zucc" parent="." instance=ExtResource( 6 )]
+[node name="Zuck" parent="." instance=ExtResource( 6 )]
 transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, -2 )
 __meta__ = {
 "_editor_description_": ""
@@ -83,12 +81,13 @@ anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 3 )
 
-[node name="Health" type="ColorRect" parent="GUI"]
+[node name="TopBar" type="ColorRect" parent="GUI"]
 anchor_right = 1.0
 margin_bottom = 32.0
+rect_pivot_offset = Vector2( 131, 99 )
 color = Color( 0, 0, 0, 1 )
 
-[node name="Bars" type="HBoxContainer" parent="GUI/Health"]
+[node name="HealthBars" type="HBoxContainer" parent="GUI/TopBar"]
 anchor_right = 1.0
 margin_left = 24.0
 margin_top = 10.0
@@ -96,27 +95,27 @@ margin_right = -24.0
 margin_bottom = 36.0
 size_flags_horizontal = 3
 
-[node name="Player1" type="ProgressBar" parent="GUI/Health/Bars"]
+[node name="Player1" type="ProgressBar" parent="GUI/TopBar/HealthBars"]
 margin_right = 469.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 value = 100.0
 
-[node name="Separator" type="VSeparator" parent="GUI/Health/Bars"]
+[node name="Separator" type="VSeparator" parent="GUI/TopBar/HealthBars"]
 margin_left = 473.0
 margin_right = 503.0
 margin_bottom = 26.0
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 9 )
 
-[node name="Player2" type="ProgressBar" parent="GUI/Health/Bars"]
+[node name="Player2" type="ProgressBar" parent="GUI/TopBar/HealthBars"]
 margin_left = 507.0
 margin_right = 976.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 value = 100.0
 
-[node name="DEBUG" type="Label" parent="GUI/Health" groups=["DEBUG"]]
+[node name="DEBUG" type="Label" parent="GUI/TopBar" groups=["DEBUG"]]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0

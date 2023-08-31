@@ -4,6 +4,12 @@
 [ext_resource path="res://Assests/Models/musk_face.glb" type="PackedScene" id=3]
 
 [node name="Boxer" instance=ExtResource( 1 )]
+collision_layer = 1
+collision_mask = 2
+
+[node name="Head" parent="." index="0"]
+collision_layer = 1
+collision_mask = 2
 
 [node name="Face" parent="Head" index="1"]
 mesh = null
@@ -13,3 +19,14 @@ transform = Transform( -0.025, 0, -3.7749e-09, 0, 0.025, 0, 3.7749e-09, 0, -0.02
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="Hand_Left" parent="." index="1"]
+collision_layer = 1
+collision_mask = 2
+
+[node name="Hand_Right" parent="." index="2"]
+collision_layer = 1
+collision_mask = 2
+
+[node name="HitBox" parent="." index="3"]
+collision_mask = 2

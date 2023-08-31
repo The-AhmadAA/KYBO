@@ -31,4 +31,16 @@ var last_update = {
 
 
 func _on_hitbox_entered(body: Node) -> void:
-	pass
+	get_tree().call_group("DEBUG", "_debug_message", "%s Got hit by %s!" % [name, body.get_parent().name])
+	lose_health()
+
+func lose_health() -> void:
+	health -= 10
+	$AnimationPlayer.play("hit")
+	get_tree().call_group("GUI", "update_health", name, health)
+	
+	if health <= 0:
+		die()
+
+func die() -> void:
+	$AnimationPlayer.play("die")

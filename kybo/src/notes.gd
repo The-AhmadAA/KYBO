@@ -1,11 +1,11 @@
 """
 TODO:
 	Integrate damage:
-		[ ] bring in health
-		[ ] couple health with UI bars
+		[x] bring in health
+		[x] couple health with UI bars
 		[ ] bring in red flashing
 		[ ] bring in score
-		[ ] bring in "death" (either animation or hiding of loser player)
+		[x] bring in "death" (either animation or hiding of loser player)
 		
 		Extension of integration:
 			[ ] figure out how to reset scene for rematch
@@ -29,4 +29,10 @@ TODO:
 			[ ] 
 		[ ] add asset links to readme to credit properly (currently, academic misconducting!)
 		[ ] improve webcam experience
+	
+	Controls:
+		[ ] Controller support
+			[ ] left and right sticks to move hands respectfully
+			[ ] triggers to punch
+			[ ] bumpers to dodge / lean OR block
 """

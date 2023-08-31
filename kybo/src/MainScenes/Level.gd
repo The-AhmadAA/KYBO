@@ -7,14 +7,14 @@ func set_character(character : String) -> void:
 		# Remove Zuck and replace with dummy for single player?
 		"Single", "Musk":
 			$Musk.set_script(load("res://Boxer/RealsenseBoxer.gd"))
-			$Zucc.set_script(load("res://Boxer/OpponentBoxer.gd"))
+			$Zuck.set_script(load("res://Boxer/OpponentBoxer.gd"))
 			$Musk.add_to_group("player")
-			$Zucc.add_to_group("opponent")
-			$Musk/Face/Camera.current = true
-		"Zucc":
-			$Zucc.set_script(load("res://Boxer/RealsenseBoxer.gd"))
+			$Zuck.add_to_group("opponent")
+			$Musk/Head/Camera.current = true
+		"Zuck":
+			$Zuck.set_script(load("res://Boxer/RealsenseBoxer.gd"))
 			$Musk.set_script(load("res://Boxer/OpponentBoxer.gd"))
 			$Musk.add_to_group("opponent")
-			$Zucc/Face/Camera.current = true
+			$Zuck/Head/Camera.current = true
 		_:
 			print("Incorrect character")

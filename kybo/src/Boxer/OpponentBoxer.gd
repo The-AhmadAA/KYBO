@@ -9,8 +9,7 @@ var last_recieved : Dictionary = {
 }
 
 
-#func _init() -> void:
-func _ready() -> void:
+func _init() -> void:
 	head = $Head
 	hand_right = $Hand_Right
 	hand_left = $Hand_Left

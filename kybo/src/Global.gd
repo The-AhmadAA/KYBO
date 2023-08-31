@@ -48,8 +48,8 @@ func join_server() -> void:
 	network.create_client(ip, port)
 	get_tree().set_network_peer(network)
 	
-	# Claim Musk
-	get_tree().call_group("Main", "set_character", "Zucc")
+	# Claim Zuck
+	get_tree().call_group("Main", "set_character", "Zuck")
 	
 	network.connect('connection_failed', self, '_OnConnectionFailed')
 	network.connect('connection_succeeded', self, '_OnConnectionSuccessful')
