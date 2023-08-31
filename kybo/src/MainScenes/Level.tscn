@@ -60,14 +60,16 @@ transform = Transform( -1.09278e-09, 0.025, 1.09278e-09, 0, -1.09278e-09, 0.025,
 mesh = ExtResource( 2 )
 material/0 = SubResource( 11 )
 
-[node name="Musk" parent="." instance=ExtResource( 4 )]
+[node name="Player1" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
+visible = true
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Zuck" parent="." instance=ExtResource( 6 )]
+[node name="Player2" parent="." instance=ExtResource( 6 )]
 transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, -2 )
+visible = true
 __meta__ = {
 "_editor_description_": ""
 }
@@ -83,9 +85,33 @@ script = ExtResource( 3 )
 
 [node name="TopBar" type="ColorRect" parent="GUI"]
 anchor_right = 1.0
-margin_bottom = 32.0
-rect_pivot_offset = Vector2( 131, 99 )
+margin_bottom = 52.0
 color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Score1" type="Label" parent="GUI/TopBar"]
+anchor_right = 1.0
+margin_left = 27.0
+margin_top = 31.0
+margin_right = -512.0
+margin_bottom = 45.0
+text = "Score: 0"
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Score2" type="Label" parent="GUI/TopBar"]
+anchor_right = 1.0
+margin_left = 533.0
+margin_top = 31.0
+margin_right = -6.0
+margin_bottom = 45.0
+text = "Score: 0"
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="HealthBars" type="HBoxContainer" parent="GUI/TopBar"]
 anchor_right = 1.0
@@ -123,9 +149,6 @@ margin_left = 82.0
 margin_top = 508.0
 margin_right = -82.0
 margin_bottom = 558.0
-text = "a
-aa
-aaa"
 align = 1
 autowrap = true
 clip_text = true

@@ -4,7 +4,7 @@ var host  = null
 var opponent = null
 
 var network : NetworkedMultiplayerENet
-var ip : String = "10.89.140.109" # "127.0.0.1"
+var ip : String = "127.0.0.1"#"10.89.140.109" # "127.0.0.1"
 var port : int = 1909
 var max_players : int = 2
 
@@ -25,8 +25,8 @@ func create_server() -> void:
 	# Messages
 	get_tree().call_group("DEBUG", "_debug_message", "Server started on " + ip + " on port " + str(port))
 	
-	# Claim Musk
-	get_tree().call_group("Main", "set_character", "Musk")
+	# Claim Player 1
+	get_tree().call_group("Main", "set_character", "Player1")
 	
 	# Connect the event of peers dis/connection to their respective functions
 	network.connect('peer_connected', self, '_PeerConnected')
@@ -48,8 +48,8 @@ func join_server() -> void:
 	network.create_client(ip, port)
 	get_tree().set_network_peer(network)
 	
-	# Claim Zuck
-	get_tree().call_group("Main", "set_character", "Zuck")
+	# Claim Player2
+	get_tree().call_group("Main", "set_character", "Player2")
 	
 	network.connect('connection_failed', self, '_OnConnectionFailed')
 	network.connect('connection_succeeded', self, '_OnConnectionSuccessful')
