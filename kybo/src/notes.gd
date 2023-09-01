@@ -5,8 +5,9 @@ TODO:
 		[x] couple health with UI bars
 		[ ] bring in red flashing
 		[x] bring in score
-		[x] bring in "death" (either animation or hiding of loser player)
-		[ ] bring in victory / loss screen
+		[~] bring in "death" (either animation or hiding of loser player)
+			[ ] stop death anim from re-triggering each hit / disable the player from doing anything new
+		[x] bring in victory / loss screen
 		
 		Extension of integration:
 			[ ] figure out how to reset scene for rematch
@@ -29,11 +30,11 @@ TODO:
 			[ ] volume settings
 			[ ] 
 		[ ] add asset links to readme to credit properly (currently, academic misconducting!)
-		[ ] improve webcam experience
 	
 	Controls:
 		[ ] Controller support
 			[ ] left and right sticks to move hands respectfully
 			[ ] triggers to punch
 			[ ] bumpers to dodge / lean OR block
+		[ ] improve webcam experience
 """

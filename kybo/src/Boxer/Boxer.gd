@@ -45,6 +45,8 @@ func lose_health() -> void:
 
 func die() -> void:
 	$AnimationPlayer.play("die")
+	if name != Global.opponent_name:
+		get_tree().call_group("GUI", "game_over", "Lose")
 
 func generate_score(opponent_alive: bool) -> void:
 	if opponent_alive:
@@ -66,6 +68,7 @@ remote func recieve_health_update(new_health: int) -> void:
 	# e.g. If p1 hits p2, this will be called on p2 of p1's side
 	
 	health = new_health # TODO: REMOVE
+	
 	# TODO: change health on the client also so that if connection is lost game is not locked out of obtaining win state?
 	
 	get_tree().call_group("GUI", "update_health", name, new_health)

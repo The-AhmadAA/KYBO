@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assests/crowd_bg.jpg" type="Texture" id=1]
 [ext_resource path="res://Assests/Models/boxing_ring.obj" type="ArrayMesh" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Boxer/BoxerZuck.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assests/Models/boxing_ring.jpg" type="Texture" id=7]
 [ext_resource path="res://MainScenes/Level.gd" type="Script" id=8]
+[ext_resource path="res://GUI/GreatFighter.ttf" type="DynamicFontData" id=9]
 
 [sub_resource type="PanoramaSky" id=5]
 panorama = ExtResource( 1 )
@@ -20,6 +21,12 @@ background_sky = SubResource( 5 )
 albedo_texture = ExtResource( 7 )
 
 [sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="DynamicFont" id=13]
+size = 100
+font_data = ExtResource( 9 )
+
+[sub_resource type="StyleBoxEmpty" id=12]
 
 [sub_resource type="GDScript" id=10]
 resource_name = "DEBUG"
@@ -171,9 +178,50 @@ margin_right = 196.0
 margin_bottom = 61.0
 text = "Reconnect"
 
+[node name="MatchOver" type="ColorRect" parent="GUI"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -41.0
+margin_bottom = 41.0
+color = Color( 0.886275, 0.239216, 0.239216, 0.729412 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Labels" type="VBoxContainer" parent="GUI/MatchOver"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -35.0
+margin_bottom = 8.0
+
+[node name="Condition" type="Label" parent="GUI/MatchOver/Labels"]
+margin_right = 1024.0
+margin_bottom = 90.0
+custom_fonts/font = SubResource( 13 )
+text = "Match is over"
+align = 1
+valign = 1
+
+[node name="Instruction" type="Label" parent="GUI/MatchOver/Labels"]
+margin_top = 94.0
+margin_right = 1024.0
+margin_bottom = 108.0
+text = "Text here should be updated"
+align = 1
+valign = 1
+
+[node name="Separator2" type="HSeparator" parent="GUI/MatchOver/Labels"]
+margin_top = 112.0
+margin_right = 1024.0
+margin_bottom = 125.0
+size_flags_vertical = 3
+custom_styles/separator = SubResource( 12 )
+
 [node name="ConnectScreen" parent="GUI" instance=ExtResource( 5 )]
 
 [node name="DEBUG" type="Label" parent="GUI" groups=["DEBUG"]]
+visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -189,4 +237,4 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[connection signal="pressed" from="GUI/Reconnect/VBox/Connect" to="GUI" method="_on_connect_pressed"]
+[connection signal="pressed" from="GUI/Reconnect/VBox/Connect" to="GUI" method="_on_reconnect_pressed"]
