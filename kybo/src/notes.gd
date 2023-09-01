@@ -4,8 +4,9 @@ TODO:
 		[x] bring in health
 		[x] couple health with UI bars
 		[ ] bring in red flashing
-		[ ] bring in score
+		[x] bring in score
 		[x] bring in "death" (either animation or hiding of loser player)
+		[ ] bring in victory / loss screen
 		
 		Extension of integration:
 			[ ] figure out how to reset scene for rematch
