@@ -9,8 +9,8 @@ var client : StreamPeerTCP = StreamPeerTCP.new()
 var buffer : String = ""
 var current_retry : int = 0
 
-var last_received_left_hand_position : Vector3 = Vector3(0,0,0) # Store the last received left hand position
-var last_received_right_hand_position : Vector3 = Vector3(0,0,0) # Store the last received right hand position
+var last_received_left_hand_position : Vector3 = Vector3(0,0,0)
+var last_received_right_hand_position : Vector3 = Vector3(0,0,0)
 
 
 func normalize_position(pos: Vector3) -> Vector3:
@@ -94,7 +94,7 @@ func _process(_delta):
 	
 	# Connected to webcam / realsense
 	if client.get_available_bytes() > 0:  # Check if there's data available
-		var data = client.get_data(100) # Adjust buffer size if necessary
+		var data = client.get_data(100)  # Adjust buffer size if necessary
 		var received_str = array_to_string(data[1])
 		buffer += received_str 
 		

@@ -9,6 +9,7 @@ onready var match_over: ColorRect = $MatchOver
 onready var condition_label: Label = $MatchOver/Labels/Condition
 onready var instruction_label: Label = $MatchOver/Labels/Instruction
 
+
 func _ready() -> void:
 	$Reconnect.hide()
 	$MatchOver.hide()
@@ -33,9 +34,6 @@ func update_score(player: String, score: int) -> void:
 			player_2_score.text = "Score: " + str(score)
 
 func game_over(condition: String) -> void:
-	var display_condition : String
-	var display_instruction : String
-	
 	match condition:
 		"Win":
 			condition_label.text = "Victory"

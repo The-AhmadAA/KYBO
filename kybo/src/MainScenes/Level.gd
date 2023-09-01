@@ -1,10 +1,8 @@
 extends Spatial
 
 func set_character(character : String) -> void:
-	# Add script to characters
-	# Add group "opponent" to oppenent
 	match character:
-		# Remove Player2 and replace with dummy for single player?
+		# TODO: Remove Player2 and replace with dummy in single player?
 		"Single", "Player1":
 			Global.opponent_name = "Player2"
 			$Player1.set_script(load("res://Boxer/RealsenseBoxer.gd"))

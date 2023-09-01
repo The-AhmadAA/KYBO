@@ -9,14 +9,14 @@ var ip : String = "127.0.0.1"#"10.89.140.109" # "127.0.0.1"
 var port : int = 1909
 var max_players : int = 2
 
+
 # =================== Single Player ===================
 func start_single_player() -> void:
 	get_tree().call_group("Main", "set_character", "Single")
 	get_tree().call_group("DEBUG", "debug_message", "Set up single player, AKA, training mode.")
 
-# =================== Server Hosting ===================
-# Host the server
 
+# =================== Server Hosting ===================
 func create_server() -> void:
 	# Start the server
 	network = NetworkedMultiplayerENet.new()
@@ -67,10 +67,6 @@ func _OnConnectionSuccessful():
 
 
 # =================== State Communication ===================
-
-# Need to:
-# Communicate collision (from host side??)
-
 func SendPlayerState(player_state):
 	rpc_unreliable_id(opponent, "RecievePlayerState", player_state)
 	
