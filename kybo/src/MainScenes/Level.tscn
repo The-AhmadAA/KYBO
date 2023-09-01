@@ -62,14 +62,12 @@ material/0 = SubResource( 11 )
 
 [node name="Player1" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
-visible = true
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="Player2" parent="." instance=ExtResource( 6 )]
 transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, -2 )
-visible = true
 __meta__ = {
 "_editor_description_": ""
 }
@@ -141,19 +139,6 @@ margin_bottom = 14.0
 size_flags_horizontal = 3
 value = 100.0
 
-[node name="DEBUG" type="Label" parent="GUI/TopBar" groups=["DEBUG"]]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 82.0
-margin_top = 508.0
-margin_right = -82.0
-margin_bottom = 558.0
-align = 1
-autowrap = true
-clip_text = true
-script = SubResource( 10 )
-
 [node name="Reconnect" type="ColorRect" parent="GUI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -187,5 +172,21 @@ margin_bottom = 61.0
 text = "Reconnect"
 
 [node name="ConnectScreen" parent="GUI" instance=ExtResource( 5 )]
+
+[node name="DEBUG" type="Label" parent="GUI" groups=["DEBUG"]]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 240.0
+margin_top = -70.0
+margin_right = -240.0
+margin_bottom = -7.0
+align = 1
+autowrap = true
+clip_text = true
+script = SubResource( 10 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [connection signal="pressed" from="GUI/Reconnect/VBox/Connect" to="GUI" method="_on_connect_pressed"]

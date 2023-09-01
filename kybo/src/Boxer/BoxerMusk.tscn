@@ -27,6 +27,3 @@ collision_mask = 2
 [node name="Hand_Right" parent="." index="2"]
 collision_layer = 1
 collision_mask = 2
-
-[node name="HitBox" parent="." index="3"]
-collision_mask = 2

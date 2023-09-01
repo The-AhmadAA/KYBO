@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "KinematicBody",
 "class": "Boxer",
 "language": "GDScript",
-"path": "res://Boxer.gd"
+"path": "res://Boxer/Boxer.gd"
 } ]
 _global_script_class_icons={
 "Boxer": ""

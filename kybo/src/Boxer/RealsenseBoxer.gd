@@ -22,7 +22,7 @@ func array_to_string(arr: Array) -> String:
 		s += char(i)
 	return s
 
-func _ready() -> void:
+func _init() -> void:
 	client.connect_to_host(LOCALHOST, PORT)
 	
 	if client.get_status() == client.STATUS_ERROR:
@@ -80,14 +80,14 @@ func _process(_delta):
 		client.connect_to_host(LOCALHOST, PORT)
 		
 		if client.get_status() != client.STATUS_ERROR: 
-			get_tree().call_group("DEBUG", "_debug_message", "Reconnected to python!")
+			get_tree().call_group("DEBUG", "debug_message", "Reconnected to python!")
 			get_tree().call_group("reconnect", "hide")
 			current_retry = 0
 		
 		current_retry += 1
 		
 		if current_retry > MAX_RETRY:
-			get_tree().call_group("DEBUG", "_debug_message", "Unable to connect to python...")
+			get_tree().call_group("DEBUG", "debug_message", "Unable to connect to python...")
 			get_tree().call_group("reconnect", "show")
 		
 		return

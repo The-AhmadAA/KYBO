@@ -2,6 +2,7 @@ extends Node
 
 var host  = null
 var opponent = null
+var opponent_name : String = ""
 
 var network : NetworkedMultiplayerENet
 var ip : String = "127.0.0.1"#"10.89.140.109" # "127.0.0.1"
@@ -11,7 +12,7 @@ var max_players : int = 2
 # =================== Single Player ===================
 func start_single_player() -> void:
 	get_tree().call_group("Main", "set_character", "Single")
-	get_tree().call_group("DEBUG", "_debug_message", "Set up single player, AKA, training mode.")
+	get_tree().call_group("DEBUG", "debug_message", "Set up single player, AKA, training mode.")
 
 # =================== Server Hosting ===================
 # Host the server
@@ -23,7 +24,7 @@ func create_server() -> void:
 	get_tree().set_network_peer(network)
 	
 	# Messages
-	get_tree().call_group("DEBUG", "_debug_message", "Server started on " + ip + " on port " + str(port))
+	get_tree().call_group("DEBUG", "debug_message", "Server started on " + ip + " on port " + str(port))
 	
 	# Claim Player 1
 	get_tree().call_group("Main", "set_character", "Player1")
@@ -34,12 +35,12 @@ func create_server() -> void:
 
 func _PeerConnected(player_id):
 	Global.opponent = player_id
-	get_tree().call_group("DEBUG", "_debug_message", "Challenger approaches!")
+	get_tree().call_group("DEBUG", "debug_message", "Challenger approaches!")
 	get_tree().call_group("connection_screen", "hide")
 
 func _PeerDisconnected(_player_id):
 	Global.opponent = null
-	get_tree().call_group("DEBUG", "_debug_message", "Opponent has fled!")
+	get_tree().call_group("DEBUG", "debug_message", "Opponent has fled!")
 
 
 # =================== Joining Client ===================
@@ -56,12 +57,12 @@ func join_server() -> void:
 
 func _OnConnectionFailed():
 	Global.opponent = null
-	get_tree().call_group("DEBUG", "_debug_message", "Join failed")
+	get_tree().call_group("DEBUG", "debug_message", "Join failed")
 	get_tree().call_group("connection_screen", "show")
 
 func _OnConnectionSuccessful():
 	Global.opponent = 1
-	get_tree().call_group("DEBUG", "_debug_message", "Join successful")
+	get_tree().call_group("DEBUG", "debug_message", "Join successful")
 	get_tree().call_group("connection_screen", "hide")
 
 
